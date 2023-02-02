@@ -2,7 +2,9 @@
 
 Welcome to the Group 8 Project II!
 
+
 Rock, Paper, Scissors Game!
+
 
 Modules: 
 
@@ -21,4 +23,5 @@ The File Module
 We hope you check back soon for updates here in the readme and the files! 
 
 Sincerely, 
+
 Group 8 
