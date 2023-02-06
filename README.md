@@ -3,6 +3,7 @@
 Welcome to the Group 8 Project II!
 
 
+RPS PRO: 
 Rock, Paper, Scissors Game!
 
 
@@ -10,13 +11,11 @@ Modules:
 
 The Game Module
 
-The User Module 
-
-The Login Module
+The Authentication Module 
 
 The Leaderboard Module
 
-The Interface Module
+The Menu Module
 
 The File Module 
 
