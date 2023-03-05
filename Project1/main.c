@@ -8,10 +8,13 @@
 * DESCRIPTION:   Project II - main.c file                                    *
 *                                                                            *
 *                                                                            *
-******************************************************************************/
+*****************************************************************************/
+
+#include <stdio.h> // header file for input and output
 
 
-int main(void)
+int main()
 {
-
+    printf("Hello World"); // prints hello world
+    return 0;
 }
