@@ -7,9 +7,12 @@
 #ifndef RPS_PRO_GAME_AUTHENTICATION_H
 #define RPS_PRO_GAME_AUTHENTICATION_H
 
+#define USER_NAME_LENGTH 30
+
 typedef struct user {
 	// TODO: write user struct
 	unsigned int id;
+	const char userName[USER_NAME_LENGTH];
 	int score;
 } USER;
 
