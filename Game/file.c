@@ -32,6 +32,10 @@ void insertUserFromLeaderboardLine(const char inputLine[], LEADERBOARD* leaderbo
 	// TODO: implement this function
 }
 
+void convertUserToLeaderboardLine(const USER* user, char formattedLeaderboardLine[]) {
+	// TODO: implement this function
+}
+
 void saveLeaderboardToFile(LEADERBOARD* leaderboard) {
 	// TODO: implement this function
 }
