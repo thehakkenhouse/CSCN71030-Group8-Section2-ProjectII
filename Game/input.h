@@ -13,6 +13,7 @@ void getStringFromUser(char[], int);
 bool isStringMinimumLength(const char[], int);
 bool isStringSpecificChar(const char[], char);
 bool getStringUpToLineSeparator(const char[], char[], int);
+void removeNewLineFromString(const char[], char[], int);
 char getCharFromUser(bool*);
 char getValidCharFromUser(const char[]);
 bool isCharInArray(char, const char[], int);

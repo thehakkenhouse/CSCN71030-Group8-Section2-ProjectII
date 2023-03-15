@@ -28,6 +28,10 @@ bool getStringUpToLineSeparator(const char inputString[], char outputString[], i
 	return false;
 }
 
+void removeNewLineFromString(const char inputString[], char outputString[], int maxOutputStringSize) {
+	// TODO: implement this function
+}
+
 char getCharFromUser(bool* successful) {
 	// TODO: implement this function
 	return false;
