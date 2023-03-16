@@ -131,7 +131,7 @@ namespace InputUnitTests {
 			char actual[10];
 
 			Assert::IsFalse(getStringUpToLineSeparator(emptyString, actual, 10));
-			Assert::AreEqual(actual, "");
+			Assert::AreEqual("", actual);
 		}
 
 		TEST_METHOD(oneCharacterStringNotLineSeparator) {
@@ -141,7 +141,7 @@ namespace InputUnitTests {
 			char actual[10];
 
 			Assert::IsFalse(getStringUpToLineSeparator(testString, actual, 10));
-			Assert::AreEqual(actual, testString);
+			Assert::AreEqual("g", actual);
 		}
 
 		TEST_METHOD(oneCharacterStringLineSeparator) {
@@ -151,7 +151,7 @@ namespace InputUnitTests {
 			char actual[10];
 
 			Assert::IsTrue(getStringUpToLineSeparator(testString, actual, 10));
-			Assert::AreEqual(actual, "");
+			Assert::AreEqual("", actual);
 		}
 
 		TEST_METHOD(stringWithNoLineSeparator) {
@@ -194,6 +194,106 @@ namespace InputUnitTests {
 
 			Assert::IsTrue(getStringUpToLineSeparator(testString, actual, 50));
 			Assert::AreEqual(actual, "This is a string ");
+		}
+	};
+
+	TEST_CLASS(removeNewLineFromStringTests)
+	{
+	public:
+		TEST_METHOD(emptyString)
+		{
+			// A test to make sure that an empty string isn't
+			// modified by this function
+			char testString[] = "";
+			char actual[10];
+
+			removeNewLineFromString(testString, actual, 10);
+
+			Assert::AreEqual(actual, "");
+		}
+
+		TEST_METHOD(stringWithSpaces)
+		{
+			// A test to make sure that a string only composed
+			// of spaces isn't modified by the function
+			char testString[] = "   ";
+			char actual[10];
+
+			removeNewLineFromString(testString, actual, 10);
+
+			Assert::AreEqual(actual, "   ");
+		}
+
+		TEST_METHOD(alphanumericString)
+		{
+			// A test to make sure that a string only composed
+			// of letters and numbers isn't modified by the function
+			char testString[] = "abcDEF123";
+			char actual[20];
+
+			removeNewLineFromString(testString, actual, 20);
+
+			Assert::AreEqual(actual, "abcDEF123");
+		}
+
+		TEST_METHOD(newlineOnlyString)
+		{
+			// A test to make sure a newline only string
+			// returns an empty string
+			char testString[] = "\n\n\n";
+			char actual[10];
+
+			removeNewLineFromString(testString, actual, 10);
+
+			Assert::AreEqual(actual, "");
+		}
+
+		TEST_METHOD(newlineAtEndOfString)
+		{
+			// A test to make sure that a newline at the end of the string
+			// gets removed
+			char testString[] = "this is a test\n";
+			char actual[20];
+
+			removeNewLineFromString(testString, actual, 20);
+
+			Assert::AreEqual(actual, "this is a test");
+		}
+
+		TEST_METHOD(newlineInMiddleOfString)
+		{
+			// A test to make sure that a newline in the middle
+			// of a string gets removed
+			char testString[] = "this\n is a test";
+			char actual[20];
+
+			removeNewLineFromString(testString, actual, 20);
+
+			Assert::AreEqual(actual, "this is a test");
+		}
+
+		TEST_METHOD(multipleNewlinesInString)
+		{
+			// A test to make sure that multiple newlines in a string
+			// get removed
+			char testString[] = "a longer \nstring with \na test";
+			char actual[30];
+
+			removeNewLineFromString(testString, actual, 30);
+
+			Assert::AreEqual(actual, "a longer string with a test");
+		}
+	};
+
+	TEST_CLASS(isCharInArrayTests)
+	{
+		TEST_METHOD(emptyCharArray)
+		{
+			// A test for when the allowed character array
+			// is empty
+			char allowedChars[1];
+
+			Assert::IsFalse(isCharInArray('g', allowedChars, 0));
 		}
 	};
 }
