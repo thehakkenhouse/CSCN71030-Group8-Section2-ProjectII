@@ -8,12 +8,14 @@
 #define RPS_PRO_GAME_AUTHENTICATION_H
 
 #define USER_NAME_LENGTH 30
+#define PASSWORD_LENGTH 20
 
 typedef struct user {
-	// TODO: write user struct
-	unsigned int id;
-	const char userName[USER_NAME_LENGTH];
+	char userName[USER_NAME_LENGTH];
+	char password[PASSWORD_LENGTH];
 	int score;
 } USER;
+
+void getUserName(const USER*, char[]);
 
 #endif
