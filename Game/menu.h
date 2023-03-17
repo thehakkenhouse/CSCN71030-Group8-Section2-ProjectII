@@ -10,6 +10,9 @@
 #include "leaderboard.h"
 #include "authentication.h"
 
+void printMainMenuIntroduction(const USER*);
+void printMainMenuOptions(const char[], const char*[]);
+void printMainMenu(const USER*, const char[], const char*[]);
 void runMenuAction(char input, LEADERBOARD*, USER*);
 void runMainMenu(LEADERBOARD*, USER*);
 

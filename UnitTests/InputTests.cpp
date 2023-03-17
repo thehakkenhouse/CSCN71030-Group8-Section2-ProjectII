@@ -47,7 +47,7 @@ namespace InputUnitTests {
 			// than the minimum is not allowed
 			char testString[] = "ab c";
 
-			Assert::IsFalse(isStringMinimumLength(testString, 3));
+			Assert::IsFalse(isStringMinimumLength(testString, 5));
 		}
 
 		TEST_METHOD(stringLengthOneMore) {
@@ -120,7 +120,7 @@ namespace InputUnitTests {
 		}
 	};
 
-	TEST_CLASS(getStringUpToLineSeparatorTests) {
+	TEST_CLASS(getStringUpToCharTests) {
 	public:
 		TEST_METHOD(emptyString) {
 			// A test to make sure that an empty string
@@ -130,7 +130,7 @@ namespace InputUnitTests {
 			char emptyString[] = "";
 			char actual[10];
 
-			Assert::IsFalse(getStringUpToLineSeparator(emptyString, actual, 10));
+			Assert::IsFalse(getStringUpToChar('|', emptyString, actual, 10));
 			Assert::AreEqual("", actual);
 		}
 
@@ -140,7 +140,7 @@ namespace InputUnitTests {
 			char testString[] = "g";
 			char actual[10];
 
-			Assert::IsFalse(getStringUpToLineSeparator(testString, actual, 10));
+			Assert::IsFalse(getStringUpToChar('|', testString, actual, 10));
 			Assert::AreEqual("g", actual);
 		}
 
@@ -150,7 +150,7 @@ namespace InputUnitTests {
 			char testString[] = "|";
 			char actual[10];
 
-			Assert::IsTrue(getStringUpToLineSeparator(testString, actual, 10));
+			Assert::IsTrue(getStringUpToChar('|', testString, actual, 10));
 			Assert::AreEqual("", actual);
 		}
 
@@ -160,8 +160,8 @@ namespace InputUnitTests {
 			char testString[] = "This is a test string";
 			char actual[50];
 
-			Assert::IsFalse(getStringUpToLineSeparator(testString, actual, 50));
-			Assert::AreEqual(actual, testString);
+			Assert::IsFalse(getStringUpToChar('|', testString, actual, 50));
+			Assert::AreEqual("This is a test string", actual);
 		}
 
 		TEST_METHOD(stringWithLineSeparatorAtEnd) {
@@ -171,8 +171,8 @@ namespace InputUnitTests {
 			char testString[] = "A cool input string|";
 			char actual[50];
 
-			Assert::IsTrue(getStringUpToLineSeparator(testString, actual, 50));
-			Assert::AreEqual(actual, "A cool input string");
+			Assert::IsTrue(getStringUpToChar('|', testString, actual, 50));
+			Assert::AreEqual("A cool input string", actual);
 		}
 
 		TEST_METHOD(stringWithLineSeparatorInMiddle) {
@@ -182,8 +182,8 @@ namespace InputUnitTests {
 			char testString[] = "Awesome test wh|ich is split in the middle";
 			char actual[50];
 
-			Assert::IsTrue(getStringUpToLineSeparator(testString, actual, 50));
-			Assert::AreEqual(actual, "Awesome test wh");
+			Assert::IsTrue(getStringUpToChar('|', testString, actual, 50));
+			Assert::AreEqual("Awesome test wh", actual);
 		}
 
 		TEST_METHOD(stringWithMultipleLineSeparators) {
@@ -192,8 +192,8 @@ namespace InputUnitTests {
 			char testString[] = "This is a string | which has multip|le line separators";
 			char actual[50];
 
-			Assert::IsTrue(getStringUpToLineSeparator(testString, actual, 50));
-			Assert::AreEqual(actual, "This is a string ");
+			Assert::IsTrue(getStringUpToChar('|', testString, actual, 50));
+			Assert::AreEqual("This is a string ", actual);
 		}
 	};
 
@@ -204,84 +204,77 @@ namespace InputUnitTests {
 		{
 			// A test to make sure that an empty string isn't
 			// modified by this function
-			char testString[] = "";
-			char actual[10];
+			char actual[] = "";
 
-			removeNewLineFromString(testString, actual, 10);
+			endStringAtNewLine(actual);
 
-			Assert::AreEqual(actual, "");
+			Assert::AreEqual("", actual);
 		}
 
 		TEST_METHOD(stringWithSpaces)
 		{
 			// A test to make sure that a string only composed
 			// of spaces isn't modified by the function
-			char testString[] = "   ";
-			char actual[10];
+			char actual[] = "   ";
 
-			removeNewLineFromString(testString, actual, 10);
+			endStringAtNewLine(actual);
 
-			Assert::AreEqual(actual, "   ");
+			Assert::AreEqual("   ", actual);
 		}
 
 		TEST_METHOD(alphanumericString)
 		{
 			// A test to make sure that a string only composed
 			// of letters and numbers isn't modified by the function
-			char testString[] = "abcDEF123";
-			char actual[20];
+			char actual[] = "abcDEF123";
 
-			removeNewLineFromString(testString, actual, 20);
+			endStringAtNewLine(actual);
 
-			Assert::AreEqual(actual, "abcDEF123");
+			Assert::AreEqual("abcDEF123", actual);
 		}
 
 		TEST_METHOD(newlineOnlyString)
 		{
 			// A test to make sure a newline only string
 			// returns an empty string
-			char testString[] = "\n\n\n";
-			char actual[10];
+			char actual[] = "\n\n\n";
 
-			removeNewLineFromString(testString, actual, 10);
+			endStringAtNewLine(actual);
 
-			Assert::AreEqual(actual, "");
+			Assert::AreEqual("", actual);
 		}
 
 		TEST_METHOD(newlineAtEndOfString)
 		{
 			// A test to make sure that a newline at the end of the string
 			// gets removed
-			char testString[] = "this is a test\n";
-			char actual[20];
+			char actual[] = "this is a test\n";
 
-			removeNewLineFromString(testString, actual, 20);
+			endStringAtNewLine(actual);
 
-			Assert::AreEqual(actual, "this is a test");
+			Assert::AreEqual("this is a test", actual);
 		}
 
 		TEST_METHOD(newlineInMiddleOfString)
 		{
 			// A test to make sure that a newline in the middle
 			// of a string gets removed
-			char testString[] = "this\n is a test";
-			char actual[20];
+			char actual[] = "this\n is a test";
 
-			removeNewLineFromString(testString, actual, 20);
+			endStringAtNewLine(actual);
 
-			Assert::AreEqual(actual, "this is a test");
+			Assert::AreEqual("this", actual);
 		}
 
 		TEST_METHOD(multipleNewlinesInString)
 		{
 			// A test to make sure that multiple newlines in a string
 			// get removed
-			char testString[] = "a longer \nstring with \na test";
-			char actual[30];
+			char actual[] = "a longer \nstring with \na test";
 
-			removeNewLineFromString(testString, actual, 30);
+			endStringAtNewLine(actual);
 
-			Assert::AreEqual(actual, "a longer string with a test");
+			Assert::AreEqual("a longer ", actual);
 		}
 	};
 
@@ -294,6 +287,60 @@ namespace InputUnitTests {
 			char allowedChars[1];
 
 			Assert::IsFalse(isCharInArray('g', allowedChars, 0));
+		}
+
+		TEST_METHOD(singleCharArrayMatches)
+		{
+			// A test for a single character array, where
+			// the character matches
+			char allowedChars[1] = { 'f' };
+
+			Assert::IsTrue(isCharInArray('f', allowedChars, 1));
+		}
+
+		TEST_METHOD(singleCharArrayNoMatch)
+		{
+			// A test for a single character array, where
+			// the character doesn't match
+			char allowedChars[1] = { 'l' };
+
+			Assert::IsFalse(isCharInArray('k', allowedChars, 1));
+		}
+
+		TEST_METHOD(multiCharArrayFrontMatches)
+		{
+			// A test for a multi char array, where the
+			// the search char is at the front of the array
+			char allowedChars[3] = { 'l', 'm', 'n' };
+
+			Assert::IsTrue(isCharInArray('l', allowedChars, 3));
+		}
+
+		TEST_METHOD(multiCharArrayMiddleMatches)
+		{
+			// A test for a multi char array, where the
+			// the search char is in the middle of the array
+			char allowedChars[4] = { '1', 'a', 'c', 'b'};
+
+			Assert::IsTrue(isCharInArray('c', allowedChars, 4));
+		}
+
+		TEST_METHOD(multiCharArrayEndMatches)
+		{
+			// A test for a multi char array, where the
+			// the search char is at the end of the array
+			char allowedChars[4] = { '0', '.', '2', 'g' };
+
+			Assert::IsTrue(isCharInArray('g', allowedChars, 4));
+		}
+
+		TEST_METHOD(multiCharArrayNoMatch)
+		{
+			// A test for a multi char array, where the
+			// the search char is at the front of the array
+			char allowedChars[3] = { 'd', 'f', '8' };
+
+			Assert::IsFalse(isCharInArray('k', allowedChars, 3));
 		}
 	};
 }

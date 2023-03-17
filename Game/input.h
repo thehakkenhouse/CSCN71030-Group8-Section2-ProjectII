@@ -9,11 +9,14 @@
 
 #include <stdbool.h>
 
+#define LINE_SEPARATOR_CHARACTER '|'
+
 void getStringFromUser(char[], int);
 bool isStringMinimumLength(const char[], int);
 bool isStringSpecificChar(const char[], char);
-bool getStringUpToLineSeparator(const char[], char[], int);
-void removeNewLineFromString(const char[], char[], int);
+bool getStringUpToChar(char, const char[], char[], int);
+void getStringUpToSeparator(const char inputString[], char outputString[], int maxOutputStringLength);
+void endStringAtNewLine(char[]);
 char getCharFromUser(bool*);
 char getValidCharFromUser(const char[]);
 bool isCharInArray(char, const char[], int);
