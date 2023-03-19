@@ -194,6 +194,7 @@
   <ItemGroup>
     <ClInclude Include="authentication.h" />
     <ClInclude Include="file.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="leaderboard.h" />
     <ClInclude Include="memory.h" />
