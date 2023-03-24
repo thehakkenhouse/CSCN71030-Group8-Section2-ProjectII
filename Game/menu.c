@@ -40,7 +40,7 @@
 void printMenuIntroduction(const USER* currentUser)
 {
 	char currentUserName[USER_NAME_LENGTH];
-	getUserName(currentUser, currentUserName);
+	copyUserName(currentUser, currentUserName);
 
 	printf("Hi %s, welcome to RPS Pro!\n\n", currentUserName);
 }
@@ -54,10 +54,10 @@ void printTopMenuOptions(const char optionCharacters[], const char* optionNames[
 	}
 }
 
-void printTopMenu(const USER* currentUser, const char optionCharacters[], const char* optionNames[])
+void printSecondMenu(const USER* currentUser, const char optionCharacters[], const char* optionNames[])
 {
 	printMenuIntroduction(currentUser);
-	printTopMenuOptions(optionCharacters, optionNames);
+	printSecondMenuOptions(optionCharacters, optionNames);
 }
 
 void runTopMenuAction(char input, LEADERBOARD* leaderboard, USER* currentUser) {
@@ -70,7 +70,6 @@ void runTopMenuAction(char input, LEADERBOARD* leaderboard, USER* currentUser) {
 		//call the sign up function
 		break;
 	default:
-		//???
 		break;
 	}
 }
@@ -96,8 +95,6 @@ void runSecondMenuAction(char input, LEADERBOARD* leaderboard, USER* currentUser
 			break;
 
 		default:
-			// If the user wants to quit, we don't need
-			// to do anything here
 			break;
 	}
 }
@@ -128,7 +125,6 @@ void runSecondMenu(LEADERBOARD* leaderboard, USER* currentUser) {
 		// run the menu action the user selected
 		runMenuAction(currentChar, leaderboard, currentUser);
 	}
-
 }
 
 ////////NEEDS WORK /  NOT FINISHED
