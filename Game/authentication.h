@@ -16,6 +16,6 @@ typedef struct user {
 	int score;
 } USER;
 
-void getUserName(const USER*, char[]);
+void copyUserName(const USER*, char[]);
 
 #endif
