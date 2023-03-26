@@ -18,50 +18,23 @@ typedef struct leaderboard {
 	struct leaderBoardNode* firstNode;
 } LEADERBOARD;
 
+
+printLeaderboardByHighestScore();
+// this function will print leaderboard in a sorted order from lowest to highest (max of 10?)
+
+
+doesUsernameExostInDatabase();
+// this function will check if username exists in the leaderboard linked list. will use a while loop
+
+insertUserIntoLeaderboard();
+// this function will help with new user registration and will insert a new user into the leaderboard
+
+
+updateUserScore();
+//this function will take a USER pointer to change the score
+
+
+
 #endif
 
 
-
-
-//// build these 
-//struct Node {
-//    int data;
-//    struct Node* next;
-//};
-
-// This function prints contents of linked list starting
-// from the given node
-void printList(struct leaderboardNode* n)
-{
-    while (n != NULL) {
-        printf(" %d ", n->data);
-        n = n->next;
-    }
-}
-
-// Driver's code
-//int main()
-//{
-    struct leaderboardNode* head = NULL;
-    struct leaderboardNode* second = NULL;
-    struct leaderboardNode* third = NULL;
-
-    // allocate 3 nodes in the heap
-    head = (struct leaderboardNode*)malloc(sizeof(struct leaderboardNode));
-    second = (struct leaderboardNode*)malloc(sizeof(struct leaderboardNode));
-    third = (struct leaderboardNode*)malloc(sizeof(struct leaderboardNode));
-
-    head->data = 1; // assign data in first node
-    head->next = second; // Link first node with second
-
-    second->data = 2; // assign data to second node
-    second->next = third;
-
-    third->data = 3; // assign data to third node
-    third->next = NULL;
-
-    // Function call
-    printList(head);
-
-  /*  return 0;
-}*/
