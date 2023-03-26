@@ -23,7 +23,7 @@ printLeaderboardByHighestScore();
 // this function will print leaderboard in a sorted order from lowest to highest (max of 10?)
 
 
-doesUsernameExostInDatabase();
+doesUsernameExistInDatabase();
 // this function will check if username exists in the leaderboard linked list. will use a while loop
 
 insertUserIntoLeaderboard();
@@ -32,6 +32,19 @@ insertUserIntoLeaderboard();
 
 updateUserScore();
 //this function will take a USER pointer to change the score
+
+
+// luna said this, but it's not in the game or authentication module. 
+// 
+//void updateUserScore(USER* userToUpdate, int newScore);
+//->Game module sends new score to this function
+//
+//void addUserToLeaderboard(LEADERBOARD* leaderboard, USER* newUser);
+//->Authentication module sends new user to this function
+//
+//USER* getUserByUsernameInLeaderboard(const LEADERBOARD* leaderboard, const char username[]);
+//->Authentication module sends username and this function returns either a pointer to a user in the leaderboard, or NULL if the username isn't  in the leaderboard
+
 
 
 
