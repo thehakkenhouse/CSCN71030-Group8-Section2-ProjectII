@@ -39,9 +39,7 @@ updateUserScore();
 
 exitToMainMenu();
 // player uses to exit leaderboard and go to menu
-// communiacates with menu 
-
-
+// communicates with menu 
 
 
 
