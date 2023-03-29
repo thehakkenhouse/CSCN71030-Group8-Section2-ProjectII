@@ -184,6 +184,7 @@
   <ItemGroup>
     <ClCompile Include="authentication.c" />
     <ClCompile Include="file.c" />
+    <ClCompile Include="game.c" />
     <ClCompile Include="input.c" />
     <ClCompile Include="leaderboard.c" />
     <ClCompile Include="main.c" />
@@ -193,6 +194,7 @@
   <ItemGroup>
     <ClInclude Include="authentication.h" />
     <ClInclude Include="file.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="leaderboard.h" />
     <ClInclude Include="memory.h" />
