@@ -8,11 +8,10 @@ extern "C" {
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace GameUnitTests {
-	TEST_CLASS(gameChoiceTests) {
+	TEST_CLASS(randomNumberTests) {
 public:
-	TEST_METHOD(randomNumberOne) {
-		// A test to make sure that when the random number 1 is generated
-		// the character 'r' is returned
+	TEST_METHOD(randomNumber) {
+		// A test to make sure that 
 		int randomNumber = 1;
 		char actual = 'r';
 		char gamechoice = gameChoice(randomNumber);
@@ -33,6 +32,42 @@ public:
 	TEST_METHOD(randomNumberThree) {
 		// A test to make sure that when the random number 3 is generated
 		// the character 'r' is returned
+		int randomNumber = 3;
+		char actual = 's';
+		char gamechoice = gameChoice(randomNumber);
+
+		Assert::AreEqual(actual, gamechoice);
+	}
+
+	};
+	
+	
+	
+	TEST_CLASS(gameChoiceTests) {
+public:
+	TEST_METHOD(randomNumberOne) {
+		// A test to make sure that when the random number 1 is generated
+		// the character 'r' is returned
+		int randomNumber = 1;
+		char actual = 'r';
+		char gamechoice = gameChoice(randomNumber);
+
+		Assert::AreEqual(actual, gamechoice);
+	}
+
+	TEST_METHOD(randomNumberTwo) {
+		// A test to make sure that when the random number 2 is generated
+		// the character 'p' is returned
+		int randomNumber = 2;
+		char actual = 'p';
+		char gamechoice = gameChoice(randomNumber);
+
+		Assert::AreEqual(actual, gamechoice);
+	}
+
+	TEST_METHOD(randomNumberThree) {
+		// A test to make sure that when the random number 3 is generated
+		// the character 's' is returned
 		int randomNumber = 3;
 		char actual = 's';
 		char gamechoice = gameChoice(randomNumber);
