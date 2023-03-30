@@ -34,8 +34,6 @@ char gameChoice(int randomNumber)
 
 int gameResults(char userinput, char gameChoice)
 {
-  //  char computerchoice = gameChoice(); //calls gameChoice function to get the computer generated game choice
-    printf("%c", gameChoice);
     int gameresult = 0;
     if (userinput == 'r' || userinput == 'R') //if the user inputted rock - either capital or not
     {
@@ -53,9 +51,9 @@ int gameResults(char userinput, char gameChoice)
     else
     {
         gameresult = -1;
-        printf("%s", ERROR_MESSAGE);
+        printf("%s\n", ERROR_MESSAGE);
     }
-    PrintResult(gameresult);
+    printResult(gameresult);
     return gameresult; //error using uninitialized memory //results the result of the game (0 for user win, 1 for user loss, and 2 for tie)
 }
 
@@ -102,17 +100,31 @@ int isScissors(char computerchoice)
 void printResult(int gameresult)
 {
     if (gameresult == 0) //if the user won
-        printf("You won! Great job!");
+        printf("You won! Great job!\n");
     else if (gameresult == 1) //if the user lost
-        printf("You lost! Too bad, so sad!");
+        printf("You lost! Too bad, so sad!\n");
     else if (gameresult == 2) //if there was a tie game
-        printf("Tie game! I'll get you next time!");
+        printf("Tie game! I'll get you next time!\n");
     else
-        printf("%s", ERROR_MESSAGE);
+        printf("%s\n", ERROR_MESSAGE);
 }
 
 
-int gameScore(int commandlineargument, int gameresult, USER * user)
+void gameScore(int commandlineargument, int gameresult, USER* user)
 {
-
+    int score = 0;
+    if (gameresult == 0)
+    {
+        score = commandlineargument * 1;
+    }
+    else if (gameresult == 1)
+    {
+        score = commandlineargument * (-1);
+    }
+    else if (gameresult == 2)
+    {
+        score = 0;
+    }
+    printf("Score: %d\n", score);
+    user->score = user->score + score;
 }
