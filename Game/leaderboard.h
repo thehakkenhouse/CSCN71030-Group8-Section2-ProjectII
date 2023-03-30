@@ -18,4 +18,6 @@ typedef struct leaderboard {
 	struct leaderBoardNode* firstNode;
 } LEADERBOARD;
 
+USER* getUserFromUsernameInLeaderboard(const LEADERBOARD*, const char[]);
+
 #endif

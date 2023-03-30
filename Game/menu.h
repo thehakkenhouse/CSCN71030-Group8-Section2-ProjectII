@@ -15,5 +15,6 @@ void printMainMenuOptions(const char[], const char*[]);
 void printMainMenu(const USER*, const char[], const char*[]);
 void runMenuAction(char input, LEADERBOARD*, USER*);
 void runMainMenu(LEADERBOARD*, USER*);
+void printSecondMenuOptions(const char[], const char*[]);
 
 #endif

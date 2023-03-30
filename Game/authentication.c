@@ -1,20 +1,19 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+
 // RPS Pro: authentication.c
 // Contains the implementations of the Authentication module's
 // functions
 //
 // Module managed by Saba Berenji
 
-#define CRT_SECURE_NO_WARNINGS
-
 #include "authentication.h"
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-
 #include "input.h"
 #include "file.h"
 #include "menu.h"
 #include "leaderboard.h"
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 void copyUserName(const USER* user, char userName[])
 {

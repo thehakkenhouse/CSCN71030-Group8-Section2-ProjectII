@@ -14,7 +14,11 @@
 bool doesFileExist(const char[]);
 FILE* tryToOpenFile(const char[], const char[], bool*);
 void closeFile(FILE*);
-char* convertStringToBinary(const char[]);
+size_t calculateAsciiStringSizeAsBinaryString(const char[]);
+size_t calculateBinaryStringSizeAsAsciiString(const char[]);
+char* convertAsciiStringToBinary(const char[]);
+char getCharacterFromBinaryStringIndex(const char[], int);
+char* convertBinaryStringToAscii(const char[]);
 void interpretLeaderboardLine(const char[], unsigned int, char[], int);
 void insertUserFromLeaderboardLine(const char[], LEADERBOARD*);
 void convertUserToLeaderboardLine(const USER*, char[]);

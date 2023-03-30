@@ -168,7 +168,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;$(SolutionDir)Game\$(Platform)\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>input.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>memory.obj;leaderboard.obj;authentication.obj;menu.obj;input.obj;file.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -229,6 +229,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileTests.cpp" />
     <ClCompile Include="InputTests.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|arm64'">Create</PrecompiledHeader>
