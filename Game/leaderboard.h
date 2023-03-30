@@ -7,67 +7,25 @@
 #ifndef RPS_PRO_GAME_LEADERBOARD_H
 #define RPS_PRO_GAME_LEADERBOARD_H
 
-#include "authentication.h"
+#include "authentication.h"   
+#include <stdbool.h>
 
-typedef struct leaderboardNode {
-	USER* data;
-	struct leaderboardNode* next;
+// please see leaderboard.c for the function definitions
+
+typedef struct leaderboardNode {       // LEADERBOARD_NODE struct 
+	USER* data;                         // data component of the struct
+	struct leaderboardNode* next;         // next node of the struct
 } LEADERBOARD_NODE;
 
-typedef struct leaderboard {
-	struct leaderBoardNode* firstNode;
+typedef struct leaderboard {           // LEADERBOARD struct
+	struct leaderBoardNode* firstNode; // first node of the struct
 } LEADERBOARD;
 
 
-USER* searchByUsername(LEADERBOARD* leaderboard, char usernameToSearch[]) {
-    // Set the current node to be the "first" node in the leaderboard
-    LEADERBOARD_NODE* currentNode = leaderboard->firstNode;
-
-    while (currentNode != NULL) {
-        // Does the string username that is passed from authentication
-        // match the current node's data username?
-
-        USER* currentUser = currentNode->data;
-
-        // If they do match...
-        if (strcmp(currentUser->username, usernameToSearch) == 0) {
-            // Quit early
-            return currentUser;
-        }
-
-        // Otherwise, keep going to the next node
-        currentNode = currentNode->next;
-    }
-
-    // There was no match
-    return NULL;
-}
-
-LEADERBOARD_NODE* createLeaderboardNode(const USER* user) {
-    LEADERBOARD_NODE* newNode = malloc(sizeof(LEADERBOARD_NODE));
-
-    newNode->data = user;
-    newNode->next = NULL;
-
-    return newNode;
-}
-
-void insertUserIntoLeaderboard(LEADERBOARD* leaderboard, const USER* newUser) {
-    LEADERBOARD_NODE* currentNode = leaderboard->firstNode;
-
-    // If the leaderboard is empty
-    if (leaderboard->firstNode == NULL) {
-        leaderboard->firstNode = createLeaderboardNode(newUser);
-        return;
-    }
-
-    // Keep going until the *next* element doesn't exist
-    while (currentNode->next != NULL) {
-        currentNode = currentNode->next;
-    }
-
-    currentNode->next = createLeaderboardNode(newUser);
-}
+USER* searchByUsername(LEADERBOARD* leaderboard, char usernameToSearch[]); // this is the searchByUserName function prototype
+LEADERBOARD_NODE* createLeaderboardNode(const USER* user);    // this is the createLeaderboardNode function prototype
+void insertUserIntoLeaderboard(LEADERBOARD* leaderboard, const USER* newUser); // this is the insertUserIntoLeaderboard function prototype
+bool IsEmpty(LEADERBOARD* leaderboard); // isEmpty function prototype, checks to see if leaderboard is empty or not.
 
 
 void printLeaderboardByHighestScore(const LEADERBOARD* leaderboard);                   // luna is creating this!
@@ -76,32 +34,35 @@ void printLeaderboardByHighestScore(const LEADERBOARD* leaderboard);            
 //  const char username[], int newScore
 
 
-//USER* getUserByUsernameInLeaderboard(const LEADERBOARD* leaderboard, const char username[]);               // is this search?
-//// Authentication module sends username and this function returns either a pointer to a user in the leaderboard, or NULL if the username isn't  in the leaderboard
-//
-//USER* displayLeaderboard(const LEADERBOARD* leaderboard);
-////  user will use to go from menu to leaderboard , leaderboard and menu communicate           // same as print?
 
-bool isEmpty(LEADERBOARD);
-
+// i believe these can go?
+// 
+// USER* getUserByUsernameInLeaderboard(const LEADERBOARD* leaderboard, const char username[]);               // i believe this is search?
+// Authentication module sends username and this function returns either a pointer to a user in the leaderboard, 
+// or NULL if the username isn't  in the leaderboard
 
 
-//void doesUsernameExistInDatabase(const LEADERBOARD* leaderboard, const char username[]);                         // is search one.             
+
+// USER* displayLeaderboard(const LEADERBOARD* leaderboard);
+//  user will use to go from menu to leaderboard , leaderboard and menu communicate                           // i believe this is same as print?
+
+
+//void doesUsernameExistInDatabase(const LEADERBOARD* leaderboard, const char username[]);                         // i believe this is search?
 //// this function will check if username exists in the leaderboard linked list. will use a while loop
 //// communicates with file and authentication?
 
-//void insertUserIntoLeaderboard(LEADERBOARD* leaderboard, USER* newUser);                                             // is create
+//void insertUserIntoLeaderboard(LEADERBOARD* leaderboard, USER* newUser);                                             // i believe this is create?
 //// this function will help with new user registration and will insert a new user into the leaderboard
 //// communicates with file and authentication?                                                        
 //
-//void addUserToLeaderboard(LEADERBOARD* leaderboard, USER* newUser);                               // insert
+//void addUserToLeaderboard(LEADERBOARD* leaderboard, USER* newUser);                                                   // i believe this is insert?
 //// Authentication module sends new user to this function
 
-//void exitToMainMenu();                                          // is this needed? 
+//void exitToMainMenu();                                                                                                   // is this needed? is it in main?
 //// player uses to exit leaderboard and go to menu
 //// communicates with menu 
 
-//void updateUserScore(USER* userToUpdate, int newScore);                   // don't need? in game?
+//void updateUserScore(USER* userToUpdate, int newScore);                                                           // is this needed? is it in game?
 //// Game module sends new score to this function
 //// this function will take a USER pointer to change the score
 //// communicates with game and file?
