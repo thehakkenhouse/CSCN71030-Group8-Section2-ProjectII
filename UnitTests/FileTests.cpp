@@ -220,4 +220,74 @@ namespace FileUnitTests {
 			free(actual);
 		}
 	};
+
+	TEST_CLASS(cleanStringOfSeparatorsTests)
+	{
+	public:
+		TEST_METHOD(emptyString)
+		{
+			// A test to make sure that empty strings
+			// are not modified
+			char actual[] = "";
+
+			cleanStringOfSeparators(actual);
+
+			Assert::AreEqual("", actual);
+		}
+
+		TEST_METHOD(singleCharacterNotSeparator)
+		{
+			// A test to make sure that a single character
+			// which is not the separator is not removed
+			char actual[] = "t";
+
+			cleanStringOfSeparators(actual);
+
+			Assert::AreEqual("t", actual);
+		}
+
+		TEST_METHOD(singleCharacterIsSeparator)
+		{
+			// A test to make sure that a single character
+			// which is a separator is removed
+			char actual[] = "|";
+
+			cleanStringOfSeparators(actual);
+
+			Assert::AreEqual(" ", actual);
+		}
+
+		TEST_METHOD(threeCharactersMiddleSeparator)
+		{
+			// A test to make sure that 3 characters with
+			// a separator in the middle is removed
+			char actual[] = "a|c";
+
+			cleanStringOfSeparators(actual);
+
+			Assert::AreEqual("a c", actual);
+		}
+
+		TEST_METHOD(threeCharactersEndSeparator)
+		{
+			// A test to make sure that 3 characters with
+			// a separator at the end is removed
+			char actual[] = "ab|";
+
+			cleanStringOfSeparators(actual);
+
+			Assert::AreEqual("ab ", actual);
+		}
+
+		TEST_METHOD(multipleSeparators)
+		{
+			// A test to make sure that all separators in a
+			// given string are removed
+			char actual[] = "abc|def|hi|";
+
+			cleanStringOfSeparators(actual);
+
+			Assert::AreEqual("abc def hi ", actual);
+		}
+	};
 }

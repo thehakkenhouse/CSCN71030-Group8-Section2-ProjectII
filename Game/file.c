@@ -13,9 +13,12 @@
 #include <stdbool.h>
 #include <string.h>
 
+#define DATA_SEPARATOR_CHAR '|'
 #define FILE_READ_MODE "r"
 #define FILE_WRITE_MODE "w"
 #define BITS_IN_CHAR 8
+#define NULL_TERMINATOR '\0'
+#define NULL_TERMINATOR_SIZE 1
 
 /**
  * @brief Tries to open and return a file pointer.
@@ -80,7 +83,7 @@ size_t calculateAsciiStringSizeAsBinaryString(const char inputString[])
     // As a reminder, each character in C is represented by 1 byte (8 bits)
     // Therefore, the corresponding string will be 8x as long as the ASCII string.
     // We also need the null terminator at the end of the string.
-    return lengthOfString * BITS_IN_CHAR + 1;
+    return lengthOfString * BITS_IN_CHAR + NULL_TERMINATOR_SIZE;
 }
 
 /**
@@ -98,7 +101,7 @@ size_t calculateBinaryStringSizeAsAsciiString(const char inputBinaryString[])
     // Then we'll return the equivalent as an ASCII string
     // Since a character is represented by 8 bits, we only need 1/8 of
     // the space in the new string
-    return lengthOfBinaryString / BITS_IN_CHAR + 1;
+    return lengthOfBinaryString / BITS_IN_CHAR + NULL_TERMINATOR_SIZE;
 }
 
 /**
@@ -116,7 +119,7 @@ size_t calculateBinaryStringSizeAsAsciiString(const char inputBinaryString[])
 
     // We'll put the null terminator at the beginning of the string, but
     // it will move back as we iterate through each character
-    binaryStringPointer[0] = '\0';
+    binaryStringPointer[0] = NULL_TERMINATOR;
 
     // We'll loop through each of the characters from the input string
     for(int i = 0; i < strlen(inputString); i++)
@@ -146,8 +149,8 @@ size_t calculateBinaryStringSizeAsAsciiString(const char inputBinaryString[])
  */
 char getCharacterFromBinaryStringIndex(const char inputBinaryString[], int charIndex)
 {
-    char currentBinaryString[BITS_IN_CHAR + 1];
-    int startingByteIndex = charIndex * 8;
+    char currentBinaryString[BITS_IN_CHAR + NULL_TERMINATOR_SIZE];
+    int startingByteIndex = charIndex * BITS_IN_CHAR;
 
     // Loop through all of the characters of the current segment of the binary string
     for(int i = 0; i < BITS_IN_CHAR; i++)
@@ -156,7 +159,7 @@ char getCharacterFromBinaryStringIndex(const char inputBinaryString[], int charI
     }
 
     // Add a null terminator at the end of the new string
-    currentBinaryString[BITS_IN_CHAR] = '\0';
+    currentBinaryString[BITS_IN_CHAR] = NULL_TERMINATOR;
 
     // Then, convert this subset of the string into a corresponding integer
     long int byteAsInt = strtol(currentBinaryString, 0, 2);
@@ -186,7 +189,7 @@ char* convertBinaryStringToAscii(const char inputBinaryString[])
     }
 
     // Add a null terminator at the end of the string
-    asciiStringPointer[numberOfBytesInNewString - 1] = '\0';
+    asciiStringPointer[numberOfBytesInNewString - NULL_TERMINATOR_SIZE] = NULL_TERMINATOR;
 
     return asciiStringPointer;
 }
@@ -197,6 +200,26 @@ void interpretLeaderboardLine(const char inputLine[], unsigned int userId, char 
 
 void insertUserFromLeaderboardLine(const char inputLine[], LEADERBOARD* leaderboard) {
 	// TODO: implement this function
+}
+
+/**
+ * @brief Removes any data separators from the given string
+ * @param inputString The unclean/unsafe string that will be updated to be clean
+ *
+ * @author Luna Parker
+ */
+void cleanStringOfSeparators(char inputString[])
+{
+    // Loop through each character until the end of the string
+    for(int i = 0; i < strlen(inputString); i++)
+    {
+	    // If the string is our data separator, then it will be replaced
+        // with a space
+        if(inputString[i] == DATA_SEPARATOR_CHAR)
+        {
+            inputString[i] = ' ';
+        }
+    }
 }
 
 void convertUserToLeaderboardLine(const USER* user, char formattedLeaderboardLine[]) {
