@@ -76,11 +76,11 @@ void printLeaderboardByHighestScore(const LEADERBOARD* leaderboard);            
 //  const char username[], int newScore
 
 
-USER* getUserByUsernameInLeaderboard(const LEADERBOARD* leaderboard, const char username[]);
-// Authentication module sends username and this function returns either a pointer to a user in the leaderboard, or NULL if the username isn't  in the leaderboard
-
-USER* displayLeaderboard(const LEADERBOARD* leaderboard);
-//  user will use to go from menu to leaderboard , leaderboard and menu communicate
+//USER* getUserByUsernameInLeaderboard(const LEADERBOARD* leaderboard, const char username[]);               // is this search?
+//// Authentication module sends username and this function returns either a pointer to a user in the leaderboard, or NULL if the username isn't  in the leaderboard
+//
+//USER* displayLeaderboard(const LEADERBOARD* leaderboard);
+////  user will use to go from menu to leaderboard , leaderboard and menu communicate           // same as print?
 
 bool isEmpty(LEADERBOARD);
 
