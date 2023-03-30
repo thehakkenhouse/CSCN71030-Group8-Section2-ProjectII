@@ -13,7 +13,8 @@
 
 bool doesFileExist(const char[]);
 FILE* tryToOpenFile(const char[], const char[], bool*);
-void convertStringToBinary(const char[], char[], int);
+void closeFile(FILE*);
+char* convertStringToBinary(const char[]);
 void interpretLeaderboardLine(const char[], unsigned int, char[], int);
 void insertUserFromLeaderboardLine(const char[], LEADERBOARD*);
 void convertUserToLeaderboardLine(const USER*, char[]);
