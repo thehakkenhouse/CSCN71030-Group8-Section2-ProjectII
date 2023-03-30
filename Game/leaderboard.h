@@ -19,44 +19,37 @@ typedef struct leaderboard {
 } LEADERBOARD;
 
 
-printLeaderboardByHighestScore();
+void printLeaderboardByHighestScore(const LEADERBOARD* leaderboard);
 // this function will print leaderboard in a sorted order from lowest to highest (max of 10?)
 // communicates with file 
+//  const char username[], int newScore
 
 
-doesUsernameExistInDatabase();
+void doesUsernameExistInDatabase(const LEADERBOARD* leaderboard, const char username[]);
 // this function will check if username exists in the leaderboard linked list. will use a while loop
 // communicates with file and authentication?
 
-insertUserIntoLeaderboard();
+void insertUserIntoLeaderboard(LEADERBOARD* leaderboard, USER* newUser);
 // this function will help with new user registration and will insert a new user into the leaderboard
-// communicates with file and authentication?
+// communicates with file and authentication?                                                        // is this the same as addUserToLeaderboard?
 
+void addUserToLeaderboard(LEADERBOARD* leaderboard, USER* newUser);
+// Authentication module sends new user to this function
 
-updateUserScore();
-// this function will take a USER pointer to change the score
-// communicates with game and file?
-
-exitToMainMenu();
+void exitToMainMenu();
 // player uses to exit leaderboard and go to menu
 // communicates with menu 
 
+void updateUserScore(USER* userToUpdate, int newScore);
+// Game module sends new score to this function
+// this function will take a USER pointer to change the score
+// communicates with game and file?
 
+USER* getUserByUsernameInLeaderboard(const LEADERBOARD* leaderboard, const char username[]);
+// Authentication module sends username and this function returns either a pointer to a user in the leaderboard, or NULL if the username isn't  in the leaderboard
 
-// luna said this, but it's not in the game or authentication module. 
-// 
-//void updateUserScore(USER* userToUpdate, int newScore);
-//->Game module sends new score to this function
-//
-//void addUserToLeaderboard(LEADERBOARD* leaderboard, USER* newUser);
-//->Authentication module sends new user to this function
-//
-//USER* getUserByUsernameInLeaderboard(const LEADERBOARD* leaderboard, const char username[]);
-//->Authentication module sends username and this function returns either a pointer to a user in the leaderboard, or NULL if the username isn't  in the leaderboard
-
-//goToLeaderboard();
-// user will use to go from menu to leaderboard
-// leaderboard and menu communicate
+USER* displayLeaderboard(const LEADERBOARD* leaderboard);
+//  user will use to go from menu to leaderboard , leaderboard and menu communicate
 
 
 
