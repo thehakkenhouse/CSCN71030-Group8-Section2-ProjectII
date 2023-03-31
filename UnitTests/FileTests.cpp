@@ -337,4 +337,56 @@ namespace FileUnitTests {
 			free(actual);
 		}
 	};
+
+	TEST_CLASS(interpretLeaderboardLineTests)
+	{
+	public:
+		TEST_METHOD(emptyStringsTest)
+		{
+			// A test with empty username and passwords, and a
+			// 0 score
+			char username[30];
+			char password[20];
+			int score;
+			char leaderboardLine[] = "011111000111110000110000";
+
+			interpretLeaderboardLine(leaderboardLine, username, password, &score);
+
+			Assert::AreEqual("", username);
+			Assert::AreEqual("", password);
+			Assert::AreEqual(0, score);
+		}
+
+		TEST_METHOD(conversionOneTest)
+		{
+			// A test with a username of "luna", a password of
+			// "cooltest", and a score of -12
+			char username[30];
+			char password[20];
+			int score;
+			char leaderboardLine[] = "0110110001110101011011100110000101111100011000110110111101101111011011000111010001100101011100110111010001111100001011010011000100110010";
+
+			interpretLeaderboardLine(leaderboardLine, username, password, &score);
+
+			Assert::AreEqual("luna", username);
+			Assert::AreEqual("cooltest", password);
+			Assert::AreEqual(-12, score);
+		}
+
+		TEST_METHOD(conversionTwoTest)
+		{
+			// A test with a username of "LongerUsername@", a password
+			// of "v3ryn3at!", and a score of 998
+			char username[30];
+			char password[20];
+			int score;
+			char leaderboardLine[] = "0100110001101111011011100110011101100101011100100101010101110011011001010111001001101110011000010110110101100101010000000111110001110110001100110111001001111001011011100011001101100001011101000010000101111100001110010011100100111000";
+
+			interpretLeaderboardLine(leaderboardLine, username, password, &score);
+
+			Assert::AreEqual("LongerUsername@", username);
+			Assert::AreEqual("v3ryn3at!", password);
+			Assert::AreEqual(998, score);
+		}
+	};
 }

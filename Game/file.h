@@ -19,7 +19,7 @@ size_t calculateBinaryStringSizeAsAsciiString(const char[]);
 char* convertAsciiStringToBinary(const char[]);
 char getCharacterFromBinaryStringIndex(const char[], int);
 char* convertBinaryStringToAscii(const char[]);
-void interpretLeaderboardLine(const char[], unsigned int, char[], int);
+void interpretLeaderboardLine(const char[], char[], char[], int*);
 void insertUserFromLeaderboardLine(const char[], LEADERBOARD*);
 void cleanStringOfSeparators(char[]);
 char* convertUserToLeaderboardLine(const USER*);

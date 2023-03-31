@@ -199,11 +199,73 @@ char* convertBinaryStringToAscii(const char inputBinaryString[])
     return asciiStringPointer;
 }
 
-void interpretLeaderboardLine(const char inputLine[], unsigned int userId, char userName[], int userScore) {
-	// TODO: implement this function
+/**
+ * @brief Interpret a given binary leaderboard line into corresponding usernames, passwords and scores
+ * @param inputLine The binary leaderboard line
+ * @param userName The username of the given leaderboard line
+ * @param password The password of the given leaderboard line
+ * @param userScore The score of the given leaderboard line
+ *
+ * @author Luna Parker
+ */
+void interpretLeaderboardLine(const char inputLine[], char userName[], char password[], int* userScore) {
+    char* asciiLine = convertBinaryStringToAscii(inputLine);
+
+    int currentLineIndex = 0;
+    int usernameIndex = 0;
+
+    while(asciiLine[currentLineIndex] != DATA_SEPARATOR_CHAR)
+    {
+        userName[usernameIndex] = asciiLine[currentLineIndex];
+        currentLineIndex++;
+        usernameIndex++;
+    }
+
+    // We'll add a null terminator to the username
+    userName[usernameIndex] = NULL_TERMINATOR;
+
+    // We'll skip over the data separator to start getting the password
+    currentLineIndex++;
+
+    int passwordIndex = 0;
+
+    while(asciiLine[currentLineIndex] != DATA_SEPARATOR_CHAR)
+    {
+        password[passwordIndex] = asciiLine[currentLineIndex];
+        currentLineIndex++;
+        passwordIndex++;
+    }
+
+    // We'll add a null terminator to the password
+    password[passwordIndex] = NULL_TERMINATOR;
+
+    // We'll skip over the data separator to start getting the score
+    currentLineIndex++;
+
+    char scoreString[SCORE_STRING_LENGTH];
+    int scoreIndex = 0;
+
+    while(asciiLine[currentLineIndex] != NULL_TERMINATOR)
+    {
+        scoreString[scoreIndex] = asciiLine[currentLineIndex];
+        currentLineIndex++;
+        scoreIndex++;
+    }
+
+    scoreString[scoreIndex] = NULL_TERMINATOR;
+
+    *userScore = atoi(scoreString);
+
+    free(asciiLine);
 }
 
 void insertUserFromLeaderboardLine(const char inputLine[], LEADERBOARD* leaderboard) {
+    char username[USER_NAME_LENGTH];
+    char password[PASSWORD_LENGTH];
+    int userScore;
+
+    interpretLeaderboardLine(inputLine, username, password, &userScore);
+
 	// TODO: implement this function
 }
 
