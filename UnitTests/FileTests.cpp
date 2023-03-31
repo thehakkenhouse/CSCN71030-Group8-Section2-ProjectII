@@ -3,6 +3,7 @@
 
 extern "C" {
 #include "../Game/file.h"
+#include "../Game/authentication.h"
 #include <stdlib.h>
 }
 
@@ -288,6 +289,52 @@ namespace FileUnitTests {
 			cleanStringOfSeparators(actual);
 
 			Assert::AreEqual("abc def hi ", actual);
+		}
+	};
+
+	TEST_CLASS(convertUserToLeaderboardLineTests)
+	{
+	public:
+		TEST_METHOD(conversionOneTest)
+		{
+			// A test to make sure that a user with no special
+			// characters is encoded into binary successfully
+			USER* testUser = createUser("Test User", "coolpass", 12);
+
+			char* actual = convertUserToLeaderboardLine(testUser);
+
+			Assert::AreEqual("010101000110010101110011011101000010000001010101011100110110010101110010011111000110001101101111011011110110110001110000011000010111001101110011011111000011000100110010", actual);
+
+			free(testUser);
+			free(actual);
+		}
+
+		TEST_METHOD(conversionTwoTest)
+		{
+			// A test to make sure that a user with some special
+			// characters is encoded into binary successfully
+			USER* testUser = createUser("Test!@ 123", "awes0m3!", -8);
+
+			char* actual = convertUserToLeaderboardLine(testUser);
+
+			Assert::AreEqual("01010100011001010111001101110100001000010100000000100000001100010011001000110011011111000110000101110111011001010111001100110000011011010011001100100001011111000010110100111000", actual);
+
+			free(testUser);
+			free(actual);
+		}
+
+		TEST_METHOD(conversionThreeTest)
+		{
+			// A test to make sure that a user containing the line
+			// separator is converted successfully
+			USER* testUser = createUser("Te|st", "doesth|swork?", 999);
+
+			char* actual = convertUserToLeaderboardLine(testUser);
+
+			Assert::AreEqual("0101010001100101001000000111001101110100011111000110010001101111011001010111001101110100011010000010000001110011011101110110111101110010011010110011111101111100001110010011100100111001", actual);
+
+			free(testUser);
+			free(actual);
 		}
 	};
 }

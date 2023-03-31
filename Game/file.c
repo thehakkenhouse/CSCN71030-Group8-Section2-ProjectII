@@ -14,11 +14,16 @@
 #include <string.h>
 
 #define DATA_SEPARATOR_CHAR '|'
+#define DATA_SEPARATOR_CHAR_STRING "|"
 #define FILE_READ_MODE "r"
 #define FILE_WRITE_MODE "w"
 #define BITS_IN_CHAR 8
 #define NULL_TERMINATOR '\0'
 #define NULL_TERMINATOR_SIZE 1
+#define USER_NAME_LENGTH 30
+#define PASSWORD_LENGTH 20
+#define SCORE_STRING_LENGTH 20
+#define MAX_LEADERBOARD_ASCII_LINE 100
 
 /**
  * @brief Tries to open and return a file pointer.
@@ -222,8 +227,50 @@ void cleanStringOfSeparators(char inputString[])
     }
 }
 
-void convertUserToLeaderboardLine(const USER* user, char formattedLeaderboardLine[]) {
-	// TODO: implement this function
+/*
+ * @brief Converts a given user struct into a formatted leaderboard file line string
+ * @param user The user to create a formatted line for
+ * @return The formatted binary string representing the leaderboard line
+ *
+ * @author Luna Parker
+ */
+char* convertUserToLeaderboardLine(const USER* user) {
+    char leaderboardAsciiLine[MAX_LEADERBOARD_ASCII_LINE];
+
+	// First, we'll get the username as a clean string
+    char usernameString[USER_NAME_LENGTH];
+
+    strcpy(usernameString, user->userName);
+    cleanStringOfSeparators(usernameString);
+
+    // Then we'll add it to the formatted line
+    strcpy(leaderboardAsciiLine, usernameString);
+
+    // Add a separator between the username and password
+    strcat(leaderboardAsciiLine, DATA_SEPARATOR_CHAR_STRING);
+
+    // Next, we'll get the password as a clean string
+    char passwordString[PASSWORD_LENGTH];
+
+	strcpy(passwordString, user->password);
+    cleanStringOfSeparators(passwordString);
+
+    // Then we'll add it to the formatted line
+    strcat(leaderboardAsciiLine, passwordString);
+
+    // Add a separator between the password and score
+    strcat(leaderboardAsciiLine, DATA_SEPARATOR_CHAR_STRING);
+
+    // Finally, we'll get the score and concatenate it
+    char scoreString[SCORE_STRING_LENGTH];
+
+    sprintf(scoreString, "%d", user->score);
+    strcat(leaderboardAsciiLine, scoreString);
+
+    // We'll convert this ASCII string into a binary string
+    char* binaryString = convertAsciiStringToBinary(leaderboardAsciiLine);
+
+    return binaryString;
 }
 
 void saveLeaderboardToFile(LEADERBOARD* leaderboard) {

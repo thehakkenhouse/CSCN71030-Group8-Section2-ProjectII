@@ -22,7 +22,7 @@ char* convertBinaryStringToAscii(const char[]);
 void interpretLeaderboardLine(const char[], unsigned int, char[], int);
 void insertUserFromLeaderboardLine(const char[], LEADERBOARD*);
 void cleanStringOfSeparators(char[]);
-void convertUserToLeaderboardLine(const USER*, char[]);
+char* convertUserToLeaderboardLine(const USER*);
 void saveLeaderboardToFile(LEADERBOARD*);
 void readLeaderboardFromFile(LEADERBOARD*);
 
