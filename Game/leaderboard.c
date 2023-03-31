@@ -77,5 +77,3 @@ void insertUserIntoLeaderboard(LEADERBOARD* leaderboard, const USER* newUser) { 
 
     currentNode->next = createLeaderboardNode(newUser);
 }
-
-

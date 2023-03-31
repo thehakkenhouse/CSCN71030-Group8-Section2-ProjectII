@@ -21,6 +21,7 @@
     <ClCompile Include="InputTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FileTests.cpp">
     <ClCompile Include="AuthenticationTests.cpp">
     <ClCompile Include="GameModuleTests.cpp">
       <Filter>Source Files</Filter>

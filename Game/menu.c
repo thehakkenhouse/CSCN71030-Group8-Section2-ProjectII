@@ -123,11 +123,12 @@ void runSecondMenu(LEADERBOARD* leaderboard, USER* currentUser) {
 
 		// We know that we now have a valid char, and so we'll
 		// run the menu action the user selected
-		runMenuAction(currentChar, leaderboard, currentUser);
+		runSecondMenuAction(currentChar, leaderboard, currentUser);
 	}
 }
 
 ////////NEEDS WORK /  NOT FINISHED
+/*
 void runSecondMenu(LEADERBOARD* leaderboard, USER* currentUser) {
 
 	const char topMenuOptionCharacters[NUMBER_OF_TOPMENU_OPTIONS] = TOPMENU_OPTION_CHARACTERS;
@@ -153,3 +154,4 @@ void runSecondMenu(LEADERBOARD* leaderboard, USER* currentUser) {
 		runMenuAction(currentChar, leaderboard, currentUser);
 	}
 }
+*/

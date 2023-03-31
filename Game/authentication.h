@@ -25,6 +25,7 @@ typedef struct user {
 	int score;
 } USER;
 
+USER* createUser(const char[], const char[], int);
 void copyUserName(const USER*, char[]);
 bool login(const LEADERBOARD leaderboard, USER* currentUser);
 bool signUp(LEADERBOARD leaderboard, USER* newUser);

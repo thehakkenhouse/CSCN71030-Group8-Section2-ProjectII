@@ -6,7 +6,8 @@
 #define RPS_PRO_GAME_MEMORY_H
 
 #include <stdbool.h>
+#include <stdlib.h>
 
-void* tryToGetAndAssignMemorySafely(size_t, bool*);
+void* tryToGetAndAssignMemorySafely(size_t);
 
 #endif

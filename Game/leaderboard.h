@@ -21,7 +21,6 @@ typedef struct leaderboard {
 	LEADERBOARD_NODE* firstNode;
 } LEADERBOARD;
 
-
 USER* searchByUsername(LEADERBOARD* leaderboard, char usernameToSearch[]); // this is the searchByUserName function prototype
 LEADERBOARD_NODE* createLeaderboardNode(const USER* user);    // this is the createLeaderboardNode function prototype
 void insertUserIntoLeaderboard(LEADERBOARD* leaderboard, const USER* newUser); // this is the insertUserIntoLeaderboard function prototype
@@ -66,7 +65,6 @@ void printLeaderboardByHighestScore(const LEADERBOARD* leaderboard);            
 //// Game module sends new score to this function
 //// this function will take a USER pointer to change the score
 //// communicates with game and file?
-
 
 #endif
 

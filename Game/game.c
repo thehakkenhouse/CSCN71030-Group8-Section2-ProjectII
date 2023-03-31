@@ -4,6 +4,7 @@
 //
 // Module managed by Sierra Erb
 
+#include "game.h"
 #include "authentication.h"
 #include "game.h"
 #include "input.h"
