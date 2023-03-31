@@ -34,6 +34,9 @@ char gameChoice(int randomNumber)
 
 int gameResults(char userinput, char gameChoice)
 {
+
+  //  char computerchoice = gameChoice(); //calls gameChoice function to get the computer generated game choice
+    printf("%c", gameChoice);
     int gameresult = 0;
     if (userinput == 'r' || userinput == 'R') //if the user inputted rock - either capital or not
     {
@@ -53,7 +56,7 @@ int gameResults(char userinput, char gameChoice)
         gameresult = -1;
         printf("%s\n", ERROR_MESSAGE);
     }
-    printResult(gameresult);
+    PrintResult(gameresult);
     return gameresult; //error using uninitialized memory //results the result of the game (0 for user win, 1 for user loss, and 2 for tie)
 }
 
