@@ -17,8 +17,8 @@ typedef struct leaderboardNode {       // LEADERBOARD_NODE struct
 	struct leaderboardNode* next;         // next node of the struct
 } LEADERBOARD_NODE;
 
-typedef struct leaderboard {           // LEADERBOARD struct
-	struct leaderBoardNode* firstNode; // first node of the struct
+typedef struct leaderboard {
+	LEADERBOARD_NODE* firstNode;
 } LEADERBOARD;
 
 
