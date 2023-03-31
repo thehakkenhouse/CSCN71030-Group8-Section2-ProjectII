@@ -4,8 +4,17 @@
 //
 // Module managed by Saba Berenji
 
-#ifndef RPS_PRO_GAME_AUTHENTICATION_H
-#define RPS_PRO_GAME_AUTHENTICATION_H
+#pragma once
+#define CRT_SECURE_NO_WARNINGS
+
+
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#include "input.h"
+#include "menu.h"
+#include "leaderboard.h"
 
 #define USER_NAME_LENGTH 30
 #define PASSWORD_LENGTH 20
@@ -18,5 +27,6 @@ typedef struct user {
 
 USER* createUser(const char[], const char[], int);
 void copyUserName(const USER*, char[]);
-
-#endif
+bool login(const LEADERBOARD leaderboard, USER* currentUser);
+bool signUp(LEADERBOARD leaderboard, USER* newUser);
+bool doesPasswordMatch(const USER* leaderboardUser, const char inputPassword[]);

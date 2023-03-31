@@ -22,11 +22,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FileTests.cpp">
+    <ClCompile Include="AuthenticationTests.cpp">
+    <ClCompile Include="GameModuleTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\authentication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\leaderboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
