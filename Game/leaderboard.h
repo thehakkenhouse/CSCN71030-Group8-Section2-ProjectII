@@ -13,21 +13,21 @@
 // please see leaderboard.c for the function definitions
 
 typedef struct leaderboardNode {       // LEADERBOARD_NODE struct 
-	USER* data;                         // data component of the struct
+	struct user* data;                         // data component of the struct
 	struct leaderboardNode* next;         // next node of the struct
 } LEADERBOARD_NODE;
 
 typedef struct leaderboard {
-	LEADERBOARD_NODE* firstNode;
+	struct leaderboardNode* firstNode;
 } LEADERBOARD;
 
-USER* searchByUsername(LEADERBOARD* leaderboard, char usernameToSearch[]); // this is the searchByUserName function prototype
-LEADERBOARD_NODE* createLeaderboardNode(const USER* user);    // this is the createLeaderboardNode function prototype
-void insertUserIntoLeaderboard(LEADERBOARD* leaderboard, const USER* newUser); // this is the insertUserIntoLeaderboard function prototype
-bool IsEmpty(LEADERBOARD* leaderboard); // isEmpty function prototype, checks to see if leaderboard is empty or not.
+struct user* searchByUsername(struct leaderboard* leaderboard, char usernameToSearch[]); // this is the searchByUserName function prototype
+struct leaderboardNode* createLeaderboardNode(const struct user* user);    // this is the createLeaderboardNode function prototype
+void insertUserIntoLeaderboard(struct leaderboard* leaderboard, const struct user* newUser); // this is the insertUserIntoLeaderboard function prototype
+bool IsEmpty(struct leaderboard* leaderboard); // isEmpty function prototype, checks to see if leaderboard is empty or not.
 
 
-void printLeaderboardByHighestScore(const LEADERBOARD* leaderboard);                   // luna is creating this!
+void printLeaderboardByHighestScore(const struct leaderboard* leaderboard);                   // luna is creating this!
 // this function will print leaderboard in a sorted order from lowest to highest (max of 10?)
 // communicates with file 
 //  const char username[], int newScore

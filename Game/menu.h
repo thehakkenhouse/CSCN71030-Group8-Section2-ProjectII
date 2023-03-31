@@ -10,11 +10,11 @@
 #include "leaderboard.h"
 #include "authentication.h"
 
-void printMainMenuIntroduction(const USER*);
+void printMainMenuIntroduction(const struct user*);
 void printMainMenuOptions(const char[], const char*[]);
-void printMainMenu(const USER*, const char[], const char*[]);
-void runMenuAction(char input, LEADERBOARD*, USER*);
-void runMainMenu(LEADERBOARD*, USER*);
+void printMainMenu(const struct user*, const char[], const char*[]);
+void runMenuAction(char input, struct leaderboard*, struct user*);
+void runMainMenu(struct leaderboard*, struct user*);
 void printSecondMenuOptions(const char[], const char*[]);
 
 #endif

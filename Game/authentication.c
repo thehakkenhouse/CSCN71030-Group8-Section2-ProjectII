@@ -57,7 +57,7 @@ bool doesPasswordMatch(const USER* leaderboardUser, const char inputPassword[])
 /*defining the login function which interacts with the findUserInLeaderboard() function from the leaderboard module
 and returns true if the user's entered information are correct */
 
-bool login(const LEADERBOARD leaderboard, USER* currentUser) {
+bool login(const LEADERBOARD* leaderboard, USER* currentUser) {
     // Ask the user for a username and password
     puts("Please enter your username and password: ");
     char usernameInput[USER_NAME_LENGTH];
@@ -67,7 +67,7 @@ bool login(const LEADERBOARD leaderboard, USER* currentUser) {
 
 
     // Check whether or not the given username exists in the leaderboard database
-    USER* loginUser = getUserFromUsernameInLeaderboard(leaderboard, usernameInput);  //call the getUserFromUsernameInLeaderboard function from the leaderboard module
+    USER* loginUser = searchByUsername(leaderboard, usernameInput);  //call the getUserFromUsernameInLeaderboard function from the leaderboard module
 
    
     if (loginUser == NULL) //if the username does not exist in the database
@@ -83,7 +83,7 @@ bool login(const LEADERBOARD leaderboard, USER* currentUser) {
 }
 
 //defining the signUp function which gets username and password from the user and checks to see if the account already exists or not, if not creates a new one
-bool signUp(LEADERBOARD leaderboard, USER* newUser)
+bool signUp(LEADERBOARD* leaderboard, USER* newUser)
 {
     // Get the the username for a username and password
     puts("Please enter your username and password: ");
@@ -94,7 +94,7 @@ bool signUp(LEADERBOARD leaderboard, USER* newUser)
 
 
     // Check whether the given username exists in the leaderboard database
-    USER* currentUser = getUserFromUsernameInLeaderboard(leaderboard, usernameInput);  //call the getUserFromUsernameInLeaderboard function from the leaderboard module
+    USER* currentUser = searchByUsername(leaderboard, usernameInput);  //call the getUserFromUsernameInLeaderboard function from the leaderboard module
 
     // Check whether or not the given username exists in the leaderboard database
     if (currentUser != NULL) //if the username exists in the database

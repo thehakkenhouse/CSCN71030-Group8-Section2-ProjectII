@@ -6,7 +6,6 @@
 
 #include "game.h"
 #include "authentication.h"
-#include "game.h"
 #include "input.h"
 #include <stdio.h>
 #include <time.h>
@@ -57,7 +56,7 @@ int gameResults(char userinput, char gameChoice)
         gameresult = -1;
         printf("%s\n", ERROR_MESSAGE);
     }
-    PrintResult(gameresult);
+    printResult(gameresult);
     return gameresult; //error using uninitialized memory //results the result of the game (0 for user win, 1 for user loss, and 2 for tie)
 }
 

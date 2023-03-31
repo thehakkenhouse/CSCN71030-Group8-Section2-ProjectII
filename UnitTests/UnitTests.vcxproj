@@ -168,7 +168,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;$(SolutionDir)Game\$(Platform)\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>memory.obj;leaderboard.obj;authentication.obj;menu.obj;input.obj;file.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>game.obj;memory.obj;leaderboard.obj;authentication.obj;menu.obj;input.obj;file.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -243,8 +243,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Game\authentication.h" />
-    <ClInclude Include="..\Game\leaderboard.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
