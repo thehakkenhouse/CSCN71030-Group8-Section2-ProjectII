@@ -13,6 +13,17 @@
 #include <stdlib.h>
 
 
+void gamePlay(int commandlineargument, USER* currentuser)
+{
+    bool* success = 0;
+    int randomnumbers = randomNumber();
+    char gamechoices = gameChoice(randomnumbers);
+    char validchar = getValidCharFromUser(message);
+    int gameresults = gameResults(validchar, gamechoices);
+    gameScore(commandlineargument, gameresults, currentuser);
+}
+
+
 int randomNumber()
 {
     srand(time(NULL)); //using srand to make the random function more random, seeding it with time(NULL) 
@@ -56,7 +67,7 @@ int gameResults(char userinput, char gameChoice)
         gameresult = -1;
         printf("%s\n", ERROR_MESSAGE);
     }
-    printResult(gameresult);
+    printResults(gameresult);
     return gameresult; //error using uninitialized memory //results the result of the game (0 for user win, 1 for user loss, and 2 for tie)
 }
 
@@ -100,7 +111,7 @@ int isScissors(char computerchoice)
         return -1;
 }
 
-void printResult(int gameresult)
+void printResults(int gameresult)
 {
     if (gameresult == 0) //if the user won
         printf("You won! Great job!\n");
@@ -113,7 +124,7 @@ void printResult(int gameresult)
 }
 
 
-void gameScore(int commandlineargument, int gameresult, USER* user)
+void gameScore(int commandlineargument, int gameresult, USER* currentuser)
 {
     int score = 0;
     if (gameresult == 0)
@@ -129,5 +140,5 @@ void gameScore(int commandlineargument, int gameresult, USER* user)
         score = 0;
     }
     printf("Score: %d\n", score);
-    user->score = user->score + score;
+    currentuser->score = currentuser->score + score;
 }
