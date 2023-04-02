@@ -4,13 +4,25 @@
 //
 // Module managed by Sierra Erb
 
+
 #include "authentication.h"
 #include "game.h"
+#include "input.h"
 #include "input.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
 #include <stdlib.h>
+
+int gamePlay(void)
+{
+    bool* success = 0;
+    int randomnumbers = randomNumber();
+    char gamechoices = gameChoice(randomnumbers);
+    char validchar = getValidCharFromUser(message);
+    int gameresults = gameResults(validchar, gamechoices);
+    return gameresults;
+}
 
 
 int randomNumber()
@@ -35,6 +47,7 @@ char gameChoice(int randomNumber)
 int gameResults(char userinput, char gameChoice)
 {
     int gameresult = 0;
+    printf("%c\n", gameChoice);
     if (userinput == 'r' || userinput == 'R') //if the user inputted rock - either capital or not
     {
         gameresult = isRock(gameChoice); //calls on isRock function
@@ -53,13 +66,13 @@ int gameResults(char userinput, char gameChoice)
         gameresult = -1;
         printf("%s\n", ERROR_MESSAGE);
     }
-    printResult(gameresult);
+    printResults(gameresult);
     return gameresult; //error using uninitialized memory //results the result of the game (0 for user win, 1 for user loss, and 2 for tie)
 }
 
 int isRock(char computerchoice)
 {
-   // int result; //0 means a win, 1 means a loss, 2 means a tie
+    // int result; //0 means a win, 1 means a loss, 2 means a tie
     if (computerchoice == 'r') //user entered rock and so did computer
         return 2; //tie game
     else if (computerchoice == 'p') //user entered rock and computer chose paper
@@ -72,7 +85,7 @@ int isRock(char computerchoice)
 
 int isPaper(char computerchoice)
 {
-  //  int result; //0 means a win, 1 means a loss, 2 means a tie
+    //  int result; //0 means a win, 1 means a loss, 2 means a tie
     if (computerchoice == 'r') //user entered paper and computer chose rock
         return 0; //user won
     else if (computerchoice == 'p') //user entered paper and computer chose paper
@@ -97,7 +110,7 @@ int isScissors(char computerchoice)
         return -1;
 }
 
-void printResult(int gameresult)
+void printResults(int gameresult)
 {
     if (gameresult == 0) //if the user won
         printf("You won! Great job!\n");

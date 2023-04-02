@@ -18,4 +18,5 @@ typedef struct leaderboard {
 	struct leaderBoardNode* firstNode;
 } LEADERBOARD;
 
+
 #endif
