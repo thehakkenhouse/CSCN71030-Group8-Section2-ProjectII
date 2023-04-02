@@ -41,73 +41,87 @@ void copyUserName(const USER* user, char userName[])
 	strcpy_s(user->userName, sizeof(char) * USER_NAME_LENGTH, userName);
 }
 
-//defining the doesPasswordMatch function which checks to see if the entered password matches the user's password from the leaderboard module
+/*defining the doesPasswordMatch function which checks to see if the entered
+password matches the user's password from the leaderboard database*/
+
 bool doesPasswordMatch(const USER* leaderboardUser, const char inputPassword[])
 {
-    if (strcmp(leaderboardUser->password, inputPassword) != 0) {
-        printf("Your password doesn't match the provided username.");
+    if (strcmp(leaderboardUser->password, inputPassword) != 0)
         return false;      //return false if the passwords don't match
-    }
 
-    else 
-     return true;         //return true if the passwords are identical
+    else
+        return true;         //return true if the passwords are identical
 }
 
 
-/*defining the login function which interacts with the findUserInLeaderboard() function from the leaderboard module
-and returns true if the user's entered information are correct */
+/*defining the login function which returns true if the usrname and password entered by the user
+matches the ones in the leaderboard database and returns false otherwise */
 
 bool login(const LEADERBOARD* leaderboard, USER* currentUser) {
+
     // Ask the user for a username and password
-    puts("Please enter your username and password: ");
+    puts("Please enter your username and password in order to log in: ");
     char usernameInput[USER_NAME_LENGTH];
     char passwordInput[PASSWORD_LENGTH];
+
+    //get the username and password from the user
     getStringFromUser(usernameInput, USER_NAME_LENGTH);
     getStringFromUser(passwordInput, PASSWORD_LENGTH);
 
 
     // Check whether or not the given username exists in the leaderboard database
-    USER* loginUser = searchByUsername(leaderboard, usernameInput);  //call the getUserFromUsernameInLeaderboard function from the leaderboard module
+    USER* loginUser = searchByUsername(leaderboard, usernameInput);  //call the searchByUsername function from the leaderboard module
 
-   
+
     if (loginUser == NULL) //if the username does not exist in the database
     {
-        printf("The username entered does not exits. Please enter a valid username or sign up to create a new account\n");  //display a usable message and return false
-        return false;  
+        printf("The username entered does not exist. Please enter a valid username or sign up to create a new account\n");  //display a usable message and return false
+        return false;
     }
 
+    /* if the username exists, check if the password entered matches the password stored for that username
+    by calling the doesPasswordMatch function */
 
-    doesPasswordMatch(loginUser, passwordInput);    //if the username exists, check if the password entered matches the password stored for that username
+    if (!doesPasswordMatch(loginUser, passwordInput))     //if the password does not match the username, print a usable message and return false
+    {
+        printf("Your password doesn't match the provided username. Please enter a valid password.");
+        return false;
+    }
+    currentUser = loginUser;
 
-    return true;   //return true if botht the username and password are correct
+    return true;   //return true if both the username and password are correct
 }
 
-//defining the signUp function which gets username and password from the user and checks to see if the account already exists or not, if not creates a new one
+
+/* defining the signUp function which gets username and password from the user and checks to see if the account already exists or not,
+if not creates a new account */
+
 bool signUp(LEADERBOARD* leaderboard, USER* newUser)
 {
-    // Get the the username for a username and password
-    puts("Please enter your username and password: ");
+    // Ask the user for a username and password
+    puts("Please enter a username and a password in order to sign up: ");
     char usernameInput[USER_NAME_LENGTH];
     char passwordInput[PASSWORD_LENGTH];
+
+    //get the username and password from the user
     getStringFromUser(usernameInput, USER_NAME_LENGTH);
     getStringFromUser(passwordInput, PASSWORD_LENGTH);
 
 
     // Check whether the given username exists in the leaderboard database
-    USER* currentUser = searchByUsername(leaderboard, usernameInput);  //call the getUserFromUsernameInLeaderboard function from the leaderboard module
+    USER* currentUser = searchByUsername(leaderboard, usernameInput);  //call the searchByUsername function from the leaderboard module
 
-    // Check whether or not the given username exists in the leaderboard database
-    if (currentUser != NULL) //if the username exists in the database
+    if (currentUser != NULL) //if the username exists in the database and currentUser is not NULL 
     {
-        printf("This username already exists, please try a different username or log in to your account");  //display a usable message and return false
+        //display a usable message and return false
+        printf("This username already exists, please try a different username or log in to your account");
         return false;
     }
 
     else   //if there is no account with the entered username, create a new account for the user by saving the data
     {
-        //save the data
-        strcpy(newUser->userName, usernameInput);
-        strcpy(newUser->password, passwordInput);
+        strcpy_s(newUser->userName, sizeof(char) * PASSWORD_LENGTH, usernameInput);
+        strcpy_s(newUser->password, sizeof(char) * PASSWORD_LENGTH, passwordInput);
     }
 
     return true;   //finally, return true after saving the user's data
