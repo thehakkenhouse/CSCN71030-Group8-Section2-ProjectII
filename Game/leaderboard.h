@@ -15,7 +15,7 @@ typedef struct leaderboardNode {
 } LEADERBOARD_NODE;
 
 typedef struct leaderboard {
-	struct leaderBoardNode* firstNode;
+	LEADERBOARD_NODE* firstNode;
 } LEADERBOARD;
 
 

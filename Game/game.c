@@ -46,6 +46,9 @@ char gameChoice(int randomNumber)
 
 int gameResults(char userinput, char gameChoice)
 {
+
+  //  char computerchoice = gameChoice(); //calls gameChoice function to get the computer generated game choice
+    printf("%c", gameChoice);
     int gameresult = 0;
     printf("%c\n", gameChoice);
     if (userinput == 'r' || userinput == 'R') //if the user inputted rock - either capital or not
