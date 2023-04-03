@@ -12,6 +12,7 @@
 #include <stdlib.h>
 
 #define CHAR_INPUT_LENGTH 3
+#define WAIT_BUFFER_LENGTH 500
 
 void getStringFromUser(char inputString[], int maxLength) {
 	// Get the input from the user using fgets
@@ -210,4 +211,13 @@ int attemptToConvertStringToInteger(const char possibleIntegerString[], bool* su
 	// from the given string
 	*successful = true;
 	return (int)possibleLongInteger;
+}
+
+void waitForKeyToContinue(const char promptMessage[]) {
+	// Display a message asking the user to continue
+	printf("%s", promptMessage);
+
+	// Then wait for them to enter something...
+	char tempBuffer[WAIT_BUFFER_LENGTH];
+	fgets(tempBuffer, WAIT_BUFFER_LENGTH, stdin);
 }

@@ -36,5 +36,8 @@ int main(int argc, char* argv[])
 	// Save the leaderboard back to the game file
 	saveLeaderboardToFile(leaderboard);
 
+	// Clear the leaderboard to prevent a memory leak
+	clearLeaderboardFromMemory(leaderboard);
+
 	return 0;
 }

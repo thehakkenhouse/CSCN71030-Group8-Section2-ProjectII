@@ -9,19 +9,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#define LEADERBOARD_INTRODUCTION_FORMAT "\nWelcome to the Leaderboard! Here's a list of the highest to lowest scoring players. Try your best to get to the top!\n\n"
+#define LEADERBOARD_USER_PRINT_FORMAT "%s -- Score: %d\n"
+#define QUIT_LEADERBOARD_PROMPT "\nPress any key to return to the menu...\n"
 
-
-
-void printLeaderboardByHighestScore(const LEADERBOARD* leaderboard)
-{
-	// TODO: implement this function
-}
 // this function will print leaderboard in a sorted order from lowest to highest (max of 10?)
 // communicates with file 
 //  const char username[], int newScore
-
-
-
 
 bool IsEmpty(LEADERBOARD* leaderboard) // isEmpty function definition, checks to see if leaderboard is empty or not
 {
@@ -129,4 +123,101 @@ void clearLeaderboardFromMemory(LEADERBOARD* leaderboard)
     }
 
     free(leaderboard);
+}
+
+/**
+ * @brief Sorts the given leaderboard in descending order of score
+ * @param leaderboard The leaderboard to sort in-place
+ * 
+ * @author Luna Parker
+ */
+void sortLeaderboardByScore(struct leaderboard* leaderboard) {
+    // We should make sure that this is an initialized
+    // leaderboard. If it's not initialized, we can't sort
+    // anything.
+    if (leaderboard == NULL) {
+        return;
+    }
+
+    // We should make sure that the leaderboard has at least
+    // 1 element. If it doesn't, there's nothing to sort.
+    if (leaderboard->firstNode == NULL) {
+        return;
+    }
+
+    bool swapped = false;
+    LEADERBOARD_NODE* currentPointer;
+    LEADERBOARD_NODE* lptr = NULL;
+
+    // Bubble Sorting in-place
+    // Adapted with help from:
+    // https://www.geeksforgeeks.org/c-program-bubble-sort-linked-list/
+    do
+    {
+        swapped = false;
+        currentPointer = leaderboard->firstNode;
+
+        while (currentPointer->next != lptr)
+        {
+            USER* currentUser = currentPointer->data;
+            USER* nextUser = currentPointer->next->data;
+
+            if (currentUser->score < nextUser->score)
+            {
+                // Swap the users
+                currentPointer->data = nextUser;
+                currentPointer->next->data = currentUser;
+                swapped = true;
+            }
+
+            currentPointer = currentPointer->next;
+        }
+
+        lptr = currentPointer;
+
+    } while (swapped);
+}
+
+/**
+ * @brief Prints a single Leaderboard user in the correct format
+ * @param user The Leaderboard user to print
+ * 
+ * @author Luna Parker
+ */
+void printLeaderboardUser(const USER* user) {
+    printf(LEADERBOARD_USER_PRINT_FORMAT, user->userName, user->score);
+}
+
+/**
+ * @brief Prints all users in the leaderboard in descending order of score
+ * @param leaderboard The Leaderboard to print
+ * 
+ * @author Luna Parker
+ */
+void printLeaderboardByHighestScore(struct leaderboard* leaderboard) {
+    // If either the leaderboard is not initialized, or it has no
+    // data within it, we'll return early
+    if (leaderboard == NULL || leaderboard->firstNode == NULL) {
+        return;
+    }
+
+    printf(LEADERBOARD_INTRODUCTION_FORMAT);
+
+    // We'll sort the leaderboard in descending score order
+    sortLeaderboardByScore(leaderboard);
+
+    // We'll start at the top of the list, and work our way down
+    // to the bottom
+    LEADERBOARD_NODE* currentNode = leaderboard->firstNode;
+
+    while (currentNode != NULL) {
+        // We'll get this node's associated user, and print them
+        USER* currentUser = currentNode->data;
+        printLeaderboardUser(currentUser);
+
+        // Then, we'll iterate to the next node
+        currentNode = currentNode->next;
+    }
+
+    waitForKeyToContinue(QUIT_LEADERBOARD_PROMPT);
 }

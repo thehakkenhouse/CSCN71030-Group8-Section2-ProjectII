@@ -12,9 +12,9 @@
 
 // please see leaderboard.c for the function definitions
 
-typedef struct leaderboardNode {       // LEADERBOARD_NODE struct 
-	struct user* data;                         // data component of the struct
-	struct leaderboardNode* next;         // next node of the struct
+typedef struct leaderboardNode {
+	struct user* data;
+	struct leaderboardNode* next;
 } LEADERBOARD_NODE;
 
 typedef struct leaderboard {
@@ -26,8 +26,10 @@ struct leaderboardNode* createLeaderboardNode(const struct user*);    // this is
 void insertUserIntoLeaderboard(struct leaderboard*, const struct user*); // this is the insertUserIntoLeaderboard function prototype
 bool IsEmpty(struct leaderboard*); // isEmpty function prototype, checks to see if leaderboard is empty or not.
 LEADERBOARD* initializeNewLeaderboard(void);
-void clearLeaderboardFromMemory(LEADERBOARD*);
-void printLeaderboardByHighestScore(const struct leaderboard*);                   // luna is creating this!
+void clearLeaderboardFromMemory(struct leaderboard*);
+void sortLeaderboardByScore(struct leaderboard*);
+void printLeaderboardUser(const struct user*);
+void printLeaderboardByHighestScore(struct leaderboard*);
 
 // this function will print leaderboard in a sorted order from lowest to highest (max of 10?)
 // communicates with file 
