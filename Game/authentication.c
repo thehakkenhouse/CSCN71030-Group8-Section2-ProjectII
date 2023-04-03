@@ -38,7 +38,7 @@ USER* createUser(const char username[], const char password[], int score)
 
 void copyUserName(const USER* user, char userName[])
 {
-	strcpy_s(user->userName, sizeof(char) * USER_NAME_LENGTH, userName);
+	strcpy(userName, user->userName);
 }
 
 /*defining the doesPasswordMatch function which checks to see if the entered

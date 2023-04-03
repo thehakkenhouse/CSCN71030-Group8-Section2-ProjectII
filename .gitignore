@@ -123,3 +123,6 @@ x64/# Local History for Visual Studio
 **.cachefile
 **.VC.db
 **.VC.VC.opendb
+
+**CMakeLists.txt
+Game/game_data.txt
