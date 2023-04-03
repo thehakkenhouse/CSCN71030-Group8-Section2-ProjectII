@@ -19,9 +19,9 @@
 //play a game
 void gamePlay(int commandlineargument, USER* currentuser)
 {
-    bool* success = 0; 
     int randomnumbers = randomNumber(); //generates random number using rand and assigns it to randomnumbers
     char gamechoices = gameChoice(randomnumbers); //generates computer choice based on the random number
+    printf("Let's play a game! Enter R for rock, P for paper, or S for scissors\n");
     char validchar = getValidCharFromUser(INVALID_INPUT_MESSAGE); //gets a valid char from the user (this function comes from the input module)
     int gameresults = gameResults(validchar, gamechoices); //generates the game results based on the user input and computer input
     gameScore(commandlineargument, gameresults, currentuser); //updates user struct based on the resuls of the game

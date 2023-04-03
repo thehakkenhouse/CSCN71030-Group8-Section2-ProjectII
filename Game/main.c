@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 
 	if (argc < 2)   //displaying an error message if the user does not enter the number of players
 	{
-		puts("ERROR: you have not entered any commad line argument\n");
+		puts("ERROR: you have not entered any command line argument\n");
 		exit(EXIT_FAILURE);   //exit the program after displying the error message
 	}
 
