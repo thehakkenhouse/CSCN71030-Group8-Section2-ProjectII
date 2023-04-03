@@ -4,15 +4,26 @@
 //
 // Module managed by Sierra Erb
 
-
-#include "authentication.h"
 #include "game.h"
+#include "authentication.h"
 #include "input.h"
 #include "input.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
 #include <stdlib.h>
+
+#define INVALID_INPUT_MESSAGE "Invalid input. Please try again.\n"
+
+void gamePlay(int commandlineargument, USER* currentuser)
+{
+    bool* success = 0;
+    int randomnumbers = randomNumber();
+    char gamechoices = gameChoice(randomnumbers);
+    char validchar = getValidCharFromUser(INVALID_INPUT_MESSAGE);
+    int gameresults = gameResults(validchar, gamechoices);
+    gameScore(commandlineargument, gameresults, currentuser);
+}
 
 
 
@@ -132,8 +143,7 @@ void printResults(int gameresult)
         printf("%s\n", ERROR_MESSAGE);
 }
 
-//this function will update the users score based on the game result and the command line argument
-void gameScore(int commandlineargument, int gameresult, USER* user)
+void gameScore(int commandlineargument, int gameresult, USER* currentuser)
 {
     int score = 0;
     if (gameresult == 0) //user won the game (+1 added to score)
@@ -154,5 +164,5 @@ void gameScore(int commandlineargument, int gameresult, USER* user)
         printf("%s\n", ERROR_MESSAGE);
     }
     printf("Score: %d\n", score);
-    user->score = user->score + score; //updates user score
+    currentuser->score = currentuser->score + score;
 }
