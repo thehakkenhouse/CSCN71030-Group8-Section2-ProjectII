@@ -17,7 +17,7 @@
 #define SECOND_OPTION_CHAR 'b'
 #define QUIT_OPTION_CHAR 'q'
 
-#define MAX_MENU_OPTION_NAME_LENGTH 30
+#define MAX_MENU_OPTION_NAME_LENGTH 50
 #define INVALID_MENU_OPTION_PROVIDED_MESSAGE "ERROR: you provided an invalid menu option. Please try again.\n"
 
 //Top menu
@@ -87,7 +87,7 @@ void printSecondMenu(const USER* currentUser, const char optionCharacters[], con
 //this function contains a switch statement that calls the functions associated with each option from the top menu
 //this function will return true if the log in or sign up process was successfull
 
-bool runTopMenuAction(char input, LEADERBOARD* leaderboard, USER* currentUser) {
+bool runTopMenuAction(char input, LEADERBOARD* leaderboard, USER** currentUser) {
 
 	bool authenticatedSuccessfully = false;   //declaring a flag
 
@@ -138,7 +138,7 @@ void runSecondMenuAction(char input, LEADERBOARD* leaderboard, USER* currentUser
 
 
 
-void runTopMenu(int commandlineargument, LEADERBOARD* leaderboard, USER* currentUser)
+void runTopMenu(int commandlineargument, LEADERBOARD* leaderboard, USER** currentUser)
 {
 	const char topMenuOptionCharacters[NUMBER_OF_TOPMENU_OPTIONS] = TOPMENU_OPTION_CHARACTERS;
 	const char* topMenuOptionNames[MAX_MENU_OPTION_NAME_LENGTH] = TOPMENU_OPTION_NAMES;
@@ -150,22 +150,21 @@ void runTopMenu(int commandlineargument, LEADERBOARD* leaderboard, USER* current
 	bool authenticatedSuccessfully = false;   //declaring a flag to make sure if the user was successfully able to log in or sign up
 
 	//print the top menu again if the option entered by the user is not valid or if the log in or sign up process is not successfull
-	while (currentChar != QUIT_OPTION_CHAR || !authenticatedSuccessfully)
+	while (currentChar != QUIT_OPTION_CHAR && !authenticatedSuccessfully)
 	{
 		// We'll print the options to the user first
 		printTopMenuOptions(topMenuOptionCharacters, topMenuOptionNames);
 
 		//We'll get a *valid* character from the user, which is any of the menu options
-		currentChar = getAllowedCharFromUser(topMenuOptionCharacters, topMenuOptionNames, INVALID_MENU_OPTION_PROVIDED_MESSAGE);
+		currentChar = getAllowedCharFromUser(topMenuOptionCharacters, NUMBER_OF_TOPMENU_OPTIONS, INVALID_MENU_OPTION_PROVIDED_MESSAGE);
 
 		// We know that we now have a valid char, and so we'll run the menu action the user selected
 
 		authenticatedSuccessfully = runTopMenuAction(currentChar, leaderboard, currentUser);   //runTopMenuAction will return true if log in or sign up was successful
 	}
 
-
 	// If we've gotten here, the user has either logged in or signed up successfully, so we run the second menu
-	runSecondMenu(leaderboard, currentUser, commandlineargument);   //passing the commandlineargument that we got from the main function
+	runSecondMenu(leaderboard, *currentUser, commandlineargument);   //passing the commandlineargument that we got from the main function
 }
 
 
@@ -186,7 +185,7 @@ void runSecondMenu(LEADERBOARD* leaderboard, USER* currentUser, int commandlinea
 		printSecondMenu(currentUser, secondMenuOptionCharacters, secondMenuOptionNames);
 
 		// We'll get a *valid* character from the user, which is any of the menu options
-		currentChar = getAllowedCharFromUser(secondMenuOptionCharacters, secondMenuOptionNames, INVALID_MENU_OPTION_PROVIDED_MESSAGE);
+		currentChar = getAllowedCharFromUser(secondMenuOptionCharacters, NUMBER_OF_SECONDMENU_OPTIONS, INVALID_MENU_OPTION_PROVIDED_MESSAGE);
 
 		// We know that we now have a valid char, and so we'll
 		// run the menu action the user selected

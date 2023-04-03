@@ -28,8 +28,8 @@ typedef struct user {
 
 USER* createUser(const char[], const char[], int);
 void copyUserName(const struct user*, char[]);
-bool login(const struct leaderboard* leaderboard, struct user* currentUser);
-bool signUp(struct leaderboard* leaderboard, struct user* newUser);
+bool login(const struct leaderboard* leaderboard, struct user** currentUser);
+bool signUp(struct leaderboard* leaderboard, struct user** user);
 bool doesPasswordMatch(const struct user* leaderboardUser, const char inputPassword[]);
 
 #endif

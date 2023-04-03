@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 	bool leaderboardFileOpenedSuccessfully = false;
 	readLeaderboardFromFile(&leaderboard, &leaderboardFileOpenedSuccessfully);
 
-	runTopMenu(commandlineargument, leaderboard, currentUser);
+	runTopMenu(commandlineargument, leaderboard, &currentUser);
 
 	// Save the leaderboard back to the game file
 	saveLeaderboardToFile(leaderboard);

@@ -57,7 +57,7 @@ bool doesPasswordMatch(const USER* leaderboardUser, const char inputPassword[])
 /*defining the login function which returns true if the usrname and password entered by the user
 matches the ones in the leaderboard database and returns false otherwise */
 
-bool login(const LEADERBOARD* leaderboard, USER* currentUser) {
+bool login(const LEADERBOARD* leaderboard, USER** currentUser) {
 
     // Ask the user for a username and password
     puts("Please enter your username and password in order to log in: ");
@@ -87,7 +87,8 @@ bool login(const LEADERBOARD* leaderboard, USER* currentUser) {
         printf("Your password doesn't match the provided username. Please enter a valid password.");
         return false;
     }
-    currentUser = loginUser;
+
+	*currentUser = loginUser;
 
     return true;   //return true if both the username and password are correct
 }
@@ -96,7 +97,7 @@ bool login(const LEADERBOARD* leaderboard, USER* currentUser) {
 /* defining the signUp function which gets username and password from the user and checks to see if the account already exists or not,
 if not creates a new account */
 
-bool signUp(LEADERBOARD* leaderboard, USER* newUser)
+bool signUp(LEADERBOARD* leaderboard, USER** user)
 {
     // Ask the user for a username and password
     puts("Please enter a username and a password in order to sign up: ");
@@ -109,9 +110,9 @@ bool signUp(LEADERBOARD* leaderboard, USER* newUser)
 
 
     // Check whether the given username exists in the leaderboard database
-    USER* currentUser = searchByUsername(leaderboard, usernameInput);  //call the searchByUsername function from the leaderboard module
+    USER* possibleUser = searchByUsername(leaderboard, usernameInput);  //call the searchByUsername function from the leaderboard module
 
-    if (currentUser != NULL) //if the username exists in the database and currentUser is not NULL 
+    if (possibleUser != NULL) //if the username exists in the database and currentUser is not NULL 
     {
         //display a usable message and return false
         printf("This username already exists, please try a different username or log in to your account");
@@ -120,8 +121,8 @@ bool signUp(LEADERBOARD* leaderboard, USER* newUser)
 
     else   //if there is no account with the entered username, create a new account for the user by saving the data
     {
-        strcpy_s(newUser->userName, sizeof(char) * PASSWORD_LENGTH, usernameInput);
-        strcpy_s(newUser->password, sizeof(char) * PASSWORD_LENGTH, passwordInput);
+        *user = createUser(usernameInput, passwordInput, 0);
+        insertUserIntoLeaderboard(leaderboard, *user);
     }
 
     return true;   //finally, return true after saving the user's data
