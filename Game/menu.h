@@ -1,3 +1,4 @@
+
 // RPS Pro: menu.h
 // Contains the definitions of the Menu module's functions
 // and data structures
@@ -9,12 +10,18 @@
 
 #include "leaderboard.h"
 #include "authentication.h"
+#include <stdbool.h>
 
-void printMainMenuIntroduction(const struct user*);
-void printMainMenuOptions(const char[], const char*[]);
-void printMainMenu(const struct user*, const char[], const char*[]);
-void runMenuAction(char input, struct leaderboard*, struct user*);
-void runMainMenu(struct leaderboard*, struct user*);
-void printSecondMenuOptions(const char[], const char*[]);
+void printMenuIntroduction(const USER* currentUser);
+void printTopMenuOptions(const char optionCharacters[], const char* optionNames[]);
+void printSecondMenu(const USER* currentUser, const char optionCharacters[], const char* optionNames[]);
+bool runTopMenuAction(char input, LEADERBOARD* leaderboard, USER* currentUser);
+void printSecondMenuOptions(const char optionCharacters[], const char* optionNames[]);
+void runSecondMenuAction(char input, LEADERBOARD* leaderboard, USER* currentUser, int commandlineargument);
+void runTopMenu(int commandlineargument);
+void runSecondMenu(LEADERBOARD* leaderboard, USER* currentUser, int commandlineargument);
+
+
+
 
 #endif

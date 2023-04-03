@@ -1,3 +1,5 @@
+
+
 // RPS Pro: authentication.h
 // Contains the definitions of the Authentication module's functions
 // and data structures
@@ -26,8 +28,8 @@ typedef struct user {
 
 USER* createUser(const char[], const char[], int);
 void copyUserName(const USER*, char[]);
-bool login(const struct leaderboard* leaderboard, struct user* currentUser);
-bool signUp(struct leaderboard* leaderboard, USER* newUser);
+bool login(const LEADERBOARD* leaderboard, USER* currentUser);
+bool signUp(LEADERBOARD* leaderboard, USER* newUser);
 bool doesPasswordMatch(const USER* leaderboardUser, const char inputPassword[]);
 
 #endif
