@@ -15,18 +15,6 @@
 
 #define INVALID_INPUT_MESSAGE "Invalid input. Please try again.\n"
 
-void gamePlay(int commandlineargument, USER* currentuser)
-{
-    bool* success = 0;
-    int randomnumbers = randomNumber();
-    char gamechoices = gameChoice(randomnumbers);
-    char validchar = getValidCharFromUser(INVALID_INPUT_MESSAGE);
-    int gameresults = gameResults(validchar, gamechoices);
-    gameScore(commandlineargument, gameresults, currentuser);
-}
-
-
-
 //gamePlay will be called in the menu module when the user choses to play a game and calls all necessary functions to 
 //play a game
 void gamePlay(int commandlineargument, USER* currentuser)
@@ -34,7 +22,7 @@ void gamePlay(int commandlineargument, USER* currentuser)
     bool* success = 0; 
     int randomnumbers = randomNumber(); //generates random number using rand and assigns it to randomnumbers
     char gamechoices = gameChoice(randomnumbers); //generates computer choice based on the random number
-    char validchar = getValidCharFromUser(message); //gets a valid char from the user (this function comes from the input module)
+    char validchar = getValidCharFromUser(INVALID_INPUT_MESSAGE); //gets a valid char from the user (this function comes from the input module)
     int gameresults = gameResults(validchar, gamechoices); //generates the game results based on the user input and computer input
     gameScore(commandlineargument, gameresults, currentuser); //updates user struct based on the resuls of the game
 }
