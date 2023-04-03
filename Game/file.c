@@ -8,6 +8,7 @@
 
 #include "file.h"
 #include "memory.h"
+#include "input.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -211,8 +212,14 @@ char* convertBinaryStringToAscii(const char inputBinaryString[])
  *
  * @author Luna Parker
  */
-void interpretLeaderboardLine(const char inputLine[], char userName[], char password[], int* userScore) {
+bool interpretLeaderboardLine(const char inputLine[], char userName[], char password[], int* userScore) {
     char* asciiLine = convertBinaryStringToAscii(inputLine);
+
+    // If the given line isn't valid, then return false
+    if(!isLeaderboardLineValid(asciiLine))
+    {
+        return false;
+    }
 
     int currentLineIndex = 0;
     int usernameIndex = 0;
@@ -257,17 +264,46 @@ void interpretLeaderboardLine(const char inputLine[], char userName[], char pass
 
     scoreString[scoreIndex] = NULL_TERMINATOR;
 
-    *userScore = atoi(scoreString);
+    // We'll try to get the user score by converting it to an integer
+    bool userScoreConvertedSuccessfully = false;
+    int possibleUserScore = attemptToConvertStringToInteger(scoreString, &userScoreConvertedSuccessfully);
+
+    // If we were able to do so successfully, then we'll set this as their score
+    if(userScoreConvertedSuccessfully)
+    {
+        *userScore = possibleUserScore;
+    } else
+    {
+	    // Otherwise, we'll set it to a default of 0
+        *userScore = 0;
+    }
 
     free(asciiLine);
+
+    return true;
 }
 
+/**
+ * @brief Converts a given leaderboard binary line into a user, and then inserts them into the leaderboard
+ * @param inputLine The binary line from the file
+ * @param leaderboard The leaderboard to insert to
+ *
+ * @author Luna Parker
+ */
 void insertUserFromLeaderboardLine(const char inputLine[], LEADERBOARD* leaderboard) {
     char username[USER_NAME_LENGTH];
     char password[PASSWORD_LENGTH];
     int userScore;
 
-    interpretLeaderboardLine(inputLine, username, password, &userScore);
+    // We'll check whether we could successfully interpret the line, and if we
+    // could, we'll get back a username, password, and userScore
+    bool couldInterpretLine = interpretLeaderboardLine(inputLine, username, password, &userScore);
+
+    // If we couldn't interpret the line, we'll return before inserting anything
+    if(!couldInterpretLine)
+    {
+        return;
+    }
 
     USER* newUser = createUser(username, password, userScore);
     insertUserIntoLeaderboard(leaderboard, newUser);
@@ -348,9 +384,29 @@ char* convertUserToLeaderboardLine(const USER* user) {
  */
 void saveLeaderboardNodeToFile(FILE* leaderboardFile, LEADERBOARD_NODE* leaderboardNode)
 {
-	// TODO: implement this function
+    // If the current leaderboard node is null, we can't process any data
+	if(leaderboardNode == NULL)
+	{
+        return;
+	}
+
+    // Get the current user
+    USER* currentUser = leaderboardNode->data;
+
+    // Create the binary string from the user
+    char* binaryString = convertUserToLeaderboardLine(currentUser);
+
+    fprintf(leaderboardFile, "%s\n", binaryString);
+
+    free(binaryString);
 }
 
+/**
+ * @brief Saves the current leaderboard struct to the game's data file
+ * @param leaderboard The Leaderboard pointer
+ *
+ * @author Luna Parker
+ */
 void saveLeaderboardToFile(LEADERBOARD* leaderboard) {
     // First, we'll try to open the leaderboard file with overwrite permissions
     bool fileOpenedSuccessfully;
@@ -367,19 +423,95 @@ void saveLeaderboardToFile(LEADERBOARD* leaderboard) {
     // and convert each to binary and then save it to the file
     LEADERBOARD_NODE* currentNode = leaderboard->firstNode;
 
-    // 
+    // We'll loop through until we've reached the end of the leaderboard linked list
     while(currentNode != NULL)
     {
-	    
+        saveLeaderboardNodeToFile(possibleLeaderboardFile, currentNode);
+
+        currentNode = currentNode->next;
     }
+
+    fclose(possibleLeaderboardFile);
 }
 
-void readLeaderboardFromFile(LEADERBOARD* leaderboard, bool* openedFileSuccessfully) {
+/**
+ * @brief Check if the leaderboard line is valid
+ * @param asciiLeaderboardLine The ASCII leaderboard line to validate
+ * @return A boolean indicating whether the leaderboard line is valid
+ *
+ * @author Luna Parker
+ */
+bool isLeaderboardLineValid(const char asciiLeaderboardLine[])
+{
+    int currentLeaderboardLineIndex = 0;
+
+    while(asciiLeaderboardLine[currentLeaderboardLineIndex] != NULL_TERMINATOR && asciiLeaderboardLine[currentLeaderboardLineIndex] != DATA_SEPARATOR_CHAR)
+    {
+        currentLeaderboardLineIndex++;
+    }
+
+    // If we got to a null terminator, we know that this is an invalid leaderboard line
+    // Similarly, if the current index is 0, it means that the username was empty
+    if(asciiLeaderboardLine[currentLeaderboardLineIndex] == NULL_TERMINATOR || currentLeaderboardLineIndex == 0)
+    {
+        return false;
+    }
+
+    // We'll loop over the separator
+    currentLeaderboardLineIndex++;
+
+    while (asciiLeaderboardLine[currentLeaderboardLineIndex] != NULL_TERMINATOR && asciiLeaderboardLine[currentLeaderboardLineIndex] != DATA_SEPARATOR_CHAR)
+    {
+        currentLeaderboardLineIndex++;
+    }
+
+    // If again we got to a null terminator, we know that this is an invalid leaderboard line too
+    if(asciiLeaderboardLine[currentLeaderboardLineIndex] == NULL_TERMINATOR)
+    {
+        return false;
+    }
+
+    // We'll loop over the second separator
+    currentLeaderboardLineIndex++;
+
+    char possibleScoreString[SCORE_STRING_LENGTH];
+    int scoreStringIndex = 0;
+
+    while(asciiLeaderboardLine[currentLeaderboardLineIndex] != NULL_TERMINATOR)
+    {
+        possibleScoreString[scoreStringIndex] = asciiLeaderboardLine[currentLeaderboardLineIndex];
+        currentLeaderboardLineIndex++;
+        scoreStringIndex++;
+    }
+
+    possibleScoreString[scoreStringIndex] = NULL_TERMINATOR;
+
+    // We'll try to convert their user score to an integer, and see if there are any errors
+    bool userScoreValid = false;
+    attemptToConvertStringToInteger(possibleScoreString, &userScoreValid);
+
+    // If there were errors, return false
+    if(!userScoreValid)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * @brief Attempts to read the leaderboard from the file
+ * @param leaderboard The Leaderboard pointer to insert data into
+ * @param openedFileSuccessfully Whether an existing leaderboard file could be opened successfully
+ *
+ * @author Luna Parker
+ */
+void readLeaderboardFromFile(LEADERBOARD** leaderboard, bool* openedFileSuccessfully) {
     FILE* possibleLeaderboardFile = tryToOpenFile(LEADERBOARD_FILE_NAME, FILE_READ_MODE, openedFileSuccessfully);
-    leaderboard = initializeNewLeaderboard();
+    *leaderboard = initializeNewLeaderboard();
 
     // If the file can't be opened, we'll act as though this is a new user and just use the empty leaderboard
-    if(!openedFileSuccessfully)
+    if(!(*openedFileSuccessfully))
     {
         return;
     }
@@ -391,6 +523,8 @@ void readLeaderboardFromFile(LEADERBOARD* leaderboard, bool* openedFileSuccessfu
         // Remove the newlines retrieved by fgets to get a single line
         endStringAtNewLine(currentBuffer);
 
-        insertUserFromLeaderboardLine(currentBuffer, leaderboard);
+        insertUserFromLeaderboardLine(currentBuffer, *leaderboard);
     }
+
+    fclose(possibleLeaderboardFile);
 }

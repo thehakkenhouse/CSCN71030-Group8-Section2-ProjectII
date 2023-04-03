@@ -18,7 +18,7 @@ void printSecondMenu(const struct user* currentUser, const char optionCharacters
 bool runTopMenuAction(char input, struct leaderboard* leaderboard, struct user* currentUser);
 void printSecondMenuOptions(const char optionCharacters[], const char* optionNames[]);
 void runSecondMenuAction(char input, struct leaderboard* leaderboard, struct user* currentUser, int commandlineargument);
-void runTopMenu(int commandlineargument);
+void runTopMenu(int commandlineargument, struct leaderboard*, struct user*);
 void runSecondMenu(struct leaderboard* leaderboard, struct user* currentUser, int commandlineargument);
 
 #endif

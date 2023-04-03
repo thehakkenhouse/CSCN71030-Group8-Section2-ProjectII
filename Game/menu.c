@@ -10,6 +10,7 @@
 #include "input.h"
 #include "leaderboard.h"
 #include "game.h"
+#include "file.h"
 #include <stdio.h>
 
 #define FIRST_OPTION_CHAR 'a'
@@ -137,11 +138,8 @@ void runSecondMenuAction(char input, LEADERBOARD* leaderboard, USER* currentUser
 
 
 
-void runTopMenu(int commandlineargument)
+void runTopMenu(int commandlineargument, LEADERBOARD* leaderboard, USER* currentUser)
 {
-	LEADERBOARD* leaderboard = NULL;
-	USER* currentUser = NULL;
-
 	const char topMenuOptionCharacters[NUMBER_OF_TOPMENU_OPTIONS] = TOPMENU_OPTION_CHARACTERS;
 	const char* topMenuOptionNames[MAX_MENU_OPTION_NAME_LENGTH] = TOPMENU_OPTION_NAMES;
 

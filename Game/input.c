@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <limits.h>
+#include <stdlib.h>
 
 #define CHAR_INPUT_LENGTH 3
 
@@ -165,4 +167,47 @@ char getAllowedCharFromUser(const char allowedChars[], int numberOfAllowedChars,
 	// We know that we now have a valid character, and
 	// we'll return it
 	return userInputChar;
+}
+
+int attemptToConvertStringToInteger(const char possibleIntegerString[], bool* successful) {
+	// This function tries, as safely as possible, to convert a
+	// given input string to an integer
+	//
+	// Built with help from:
+	// https://stackoverflow.com/questions/7021725/how-to-convert-a-string-to-integer-in-c#answer-12923949
+	//
+	// Note that strange behaviour happens with type casting of
+	// characters - so using the isStringAllDigits function is
+	// strongly recommended before using this function
+	*successful = false;
+
+	// We set the errno bit to 0 so that we can accurately
+	// determine errors based on if it is not 0 after using
+	// the strtol function
+	errno = 0;
+	// The finalPointer is used so that we can determine whether
+	// it read through *all* of the string
+	char* finalCharPointer;
+
+	long possibleLongInteger = strtol(possibleIntegerString, &finalCharPointer, 10);
+
+	// If errno is not 0 (indicating a conversion error), or
+	// the finalCharPointer is not the null terminator, we know
+	// a conversion error happened and should not interpret
+	// the input further
+	if (errno != 0 || (*finalCharPointer) != '\0') {
+		return 0;
+	}
+
+	// If the user did provide a valid long integer, but it's
+	// out of the range of a regular integer, we're no better
+	// off and this also should count as an error
+	if (possibleLongInteger < INT_MIN || possibleLongInteger > INT_MAX) {
+		return 0;
+	}
+
+	// Otherwise, all is good, and we have a valid integer
+	// from the given string
+	*successful = true;
+	return (int)possibleLongInteger;
 }

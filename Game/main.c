@@ -9,9 +9,10 @@
 //
 // Please see Git tags and branches for version history
 
+#include "menu.h"
+#include "file.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "menu.h"
 
 int main(int argc, char* argv[])
 {
@@ -24,10 +25,16 @@ int main(int argc, char* argv[])
 
 	int commandlineargument = atoi(argv[1]);   //converting the input from string to integer using the atoi() function
 
+	// Attempt to open the leaderboard from the game file
+	LEADERBOARD* leaderboard = NULL;
+	USER* currentUser = NULL;
+	bool leaderboardFileOpenedSuccessfully = false;
+	readLeaderboardFromFile(&leaderboard, &leaderboardFileOpenedSuccessfully);
 
-	runTopMenu(commandlineargument);
+	runTopMenu(commandlineargument, leaderboard, currentUser);
 
-
+	// Save the leaderboard back to the game file
+	saveLeaderboardToFile(leaderboard);
 
 	return 0;
 }

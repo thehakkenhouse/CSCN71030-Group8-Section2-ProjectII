@@ -19,11 +19,13 @@ size_t calculateBinaryStringSizeAsAsciiString(const char[]);
 char* convertAsciiStringToBinary(const char[]);
 char getCharacterFromBinaryStringIndex(const char[], int);
 char* convertBinaryStringToAscii(const char[]);
-void interpretLeaderboardLine(const char[], char[], char[], int*);
+bool interpretLeaderboardLine(const char[], char[], char[], int*);
 void insertUserFromLeaderboardLine(const char[], struct leaderboard*);
 void cleanStringOfSeparators(char[]);
 char* convertUserToLeaderboardLine(const struct user*);
+void saveLeaderboardNodeToFile(FILE*, struct leaderboardNode*);
 void saveLeaderboardToFile(struct leaderboard*);
-void readLeaderboardFromFile(struct leaderboard*, bool*);
+bool isLeaderboardLineValid(const char[]);
+void readLeaderboardFromFile(struct leaderboard**, bool*);
 
 #endif

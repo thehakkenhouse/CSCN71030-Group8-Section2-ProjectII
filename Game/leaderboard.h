@@ -21,13 +21,14 @@ typedef struct leaderboard {
 	struct leaderboardNode* firstNode;
 } LEADERBOARD;
 
-struct user* searchByUsername(struct leaderboard* leaderboard, char usernameToSearch[]); // this is the searchByUserName function prototype
-struct leaderboardNode* createLeaderboardNode(const struct user* user);    // this is the createLeaderboardNode function prototype
-void insertUserIntoLeaderboard(struct leaderboard* leaderboard, const struct user* newUser); // this is the insertUserIntoLeaderboard function prototype
-bool IsEmpty(struct leaderboard* leaderboard); // isEmpty function prototype, checks to see if leaderboard is empty or not.
+struct user* searchByUsername(struct leaderboard*, char[]); // this is the searchByUserName function prototype
+struct leaderboardNode* createLeaderboardNode(const struct user*);    // this is the createLeaderboardNode function prototype
+void insertUserIntoLeaderboard(struct leaderboard*, const struct user*); // this is the insertUserIntoLeaderboard function prototype
+bool IsEmpty(struct leaderboard*); // isEmpty function prototype, checks to see if leaderboard is empty or not.
 LEADERBOARD* initializeNewLeaderboard(void);
+void clearLeaderboardFromMemory(LEADERBOARD*);
+void printLeaderboardByHighestScore(const struct leaderboard*);                   // luna is creating this!
 
-void printLeaderboardByHighestScore(const struct leaderboard* leaderboard);                   // luna is creating this!
 // this function will print leaderboard in a sorted order from lowest to highest (max of 10?)
 // communicates with file 
 //  const char username[], int newScore

@@ -96,3 +96,37 @@ LEADERBOARD* initializeNewLeaderboard(void)
 
     return newLeaderboard;
 }
+
+/**
+ * @brief Clears the leaderboard and all of its associated nodes/data from memory
+ * @param leaderboard The leaderboard to clear
+ *
+ * @author Luna Parker
+ */
+void clearLeaderboardFromMemory(LEADERBOARD* leaderboard)
+{
+    // If the leaderboard itself hasn't been assigned in memory, then
+    // there's nothing for us to free.
+    if(leaderboard == NULL)
+    {
+        return;
+    }
+
+    LEADERBOARD_NODE* currentNode = leaderboard->firstNode;
+
+    while(currentNode != NULL)
+    {
+        // We'll make a temporary node so that we can traverse
+        // before freeing the pointer
+    	LEADERBOARD_NODE* tempNode = currentNode;
+
+        currentNode = currentNode->next;
+
+        // We'll then free first the user (data) from the node,
+        // and then free the node itself
+        free(tempNode->data);
+        free(tempNode);
+    }
+
+    free(leaderboard);
+}

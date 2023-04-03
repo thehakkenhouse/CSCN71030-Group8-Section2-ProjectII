@@ -21,5 +21,6 @@ char getCharFromUser(bool*);
 char getValidCharFromUser(const char[]);
 bool isCharInArray(char, const char[], int);
 char getAllowedCharFromUser(const char[], int, const char[]);
+int attemptToConvertStringToInteger(const char[], bool*);
 
 #endif
