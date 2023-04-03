@@ -11,7 +11,7 @@
 const char message[] = "An invalid char was inputted. Try again.\n";
 #define ERROR_MESSAGE "An error occured"
 
-int gamePlay(void);
+void gamePlay(int commandlineargument, USER* currentuser);
 int randomNumber();
 char gameChoice(int randomNumber);
 int gameResults(char userinput, char gameChoice);
