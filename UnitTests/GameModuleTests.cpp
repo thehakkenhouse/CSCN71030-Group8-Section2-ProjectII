@@ -3,6 +3,7 @@
 
 extern "C" {
 #include "../Game/game.h"
+#include "../Game/authentication.h"
 }
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

@@ -7,6 +7,7 @@
 #include "game.h"
 #include "authentication.h"
 #include "input.h"
+#include "input.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
@@ -25,6 +26,20 @@ void gamePlay(int commandlineargument, USER* currentuser)
 }
 
 
+
+//gamePlay will be called in the menu module when the user choses to play a game and calls all necessary functions to 
+//play a game
+void gamePlay(int commandlineargument, USER* currentuser)
+{
+    bool* success = 0; 
+    int randomnumbers = randomNumber(); //generates random number using rand and assigns it to randomnumbers
+    char gamechoices = gameChoice(randomnumbers); //generates computer choice based on the random number
+    char validchar = getValidCharFromUser(message); //gets a valid char from the user (this function comes from the input module)
+    int gameresults = gameResults(validchar, gamechoices); //generates the game results based on the user input and computer input
+    gameScore(commandlineargument, gameresults, currentuser); //updates user struct based on the resuls of the game
+}
+
+//generates a randomNumber to help select computer input
 int randomNumber()
 {
     srand(time(NULL)); //using srand to make the random function more random, seeding it with time(NULL) 
@@ -34,6 +49,7 @@ int randomNumber()
     return randomnumber; //returns the randomly generated number 
 }
 
+//this function will assign a computer input based on the random number that was generated
 char gameChoice(int randomNumber)
 {
     if (randomNumber == 1)
@@ -44,12 +60,12 @@ char gameChoice(int randomNumber)
         return 's'; //random number 3 corresponds to the game choice of scissors
 }
 
+//this function will take the users input and computer input and generates a result 
 int gameResults(char userinput, char gameChoice)
 {
-
-  //  char computerchoice = gameChoice(); //calls gameChoice function to get the computer generated game choice
-    printf("%c", gameChoice);
     int gameresult = 0;
+    printf("Computer choice: %c\n", gameChoice);
+    printf("User choice: %c\n", userinput);
     if (userinput == 'r' || userinput == 'R') //if the user inputted rock - either capital or not
     {
         gameresult = isRock(gameChoice); //calls on isRock function
@@ -72,9 +88,10 @@ int gameResults(char userinput, char gameChoice)
     return gameresult; //error using uninitialized memory //results the result of the game (0 for user win, 1 for user loss, and 2 for tie)
 }
 
+//if the user chose rock, this function will be called to determine result of the game
 int isRock(char computerchoice)
 {
-   // int result; //0 means a win, 1 means a loss, 2 means a tie
+    // int result; //0 means a win, 1 means a loss, 2 means a tie
     if (computerchoice == 'r') //user entered rock and so did computer
         return 2; //tie game
     else if (computerchoice == 'p') //user entered rock and computer chose paper
@@ -85,9 +102,10 @@ int isRock(char computerchoice)
         return -1;
 }
 
+//if the user chose paper, this function will be called to determine result of the game
 int isPaper(char computerchoice)
 {
-  //  int result; //0 means a win, 1 means a loss, 2 means a tie
+    //  int result; //0 means a win, 1 means a loss, 2 means a tie
     if (computerchoice == 'r') //user entered paper and computer chose rock
         return 0; //user won
     else if (computerchoice == 'p') //user entered paper and computer chose paper
@@ -98,7 +116,7 @@ int isPaper(char computerchoice)
         return -1;
 }
 
-
+//if the user chose scissors, this function will be called to determine result of the game
 int isScissors(char computerchoice)
 {
     //int result; //0 means a win, 1 means a loss, 2 means a tie
@@ -112,6 +130,7 @@ int isScissors(char computerchoice)
         return -1;
 }
 
+//this function will print the result of the game to the screen
 void printResults(int gameresult)
 {
     if (gameresult == 0) //if the user won
@@ -124,21 +143,25 @@ void printResults(int gameresult)
         printf("%s\n", ERROR_MESSAGE);
 }
 
-
 void gameScore(int commandlineargument, int gameresult, USER* currentuser)
 {
     int score = 0;
-    if (gameresult == 0)
+    if (gameresult == 0) //user won the game (+1 added to score)
     {
-        score = commandlineargument * 1;
+        score = commandlineargument * 1; //whatever the command line argument is we will multiply it by +1
     }
-    else if (gameresult == 1)
+    else if (gameresult == 1) //user lost the game (-1 added to score)
     {
-        score = commandlineargument * (-1);
+        score = commandlineargument * (-1); //whatever the command line argument is we will multiply it by -1
     }
-    else if (gameresult == 2)
+    else if (gameresult == 2) //tied game
+    {
+        score = 0; //score does not change when the game is tied
+    }
+    else
     {
         score = 0;
+        printf("%s\n", ERROR_MESSAGE);
     }
     printf("Score: %d\n", score);
     currentuser->score = currentuser->score + score;
