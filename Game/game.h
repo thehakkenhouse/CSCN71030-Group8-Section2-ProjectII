@@ -9,10 +9,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #define ERROR_MESSAGE "An error occured"
-const char message[] = "Invalid input. Please try again.\n";
 
-
-void gamePlay(int commandlineargument, USER* currentuser);
+void gamePlay(int commandlineargument, struct user* currentuser);
 int randomNumber();
 char gameChoice(int randomNumber);
 int gameResults(char userinput, char gameChoice);
@@ -20,4 +18,4 @@ int isRock(char computerchoice);
 int isPaper(char computerchoice);
 int isScissors(char computerchoice);
 void printResults(int gameresult);
-void gameScore(int commandlineargument, int gameresult, USER* currentuser);
+void gameScore(int commandlineargument, int gameresult, struct user* currentuser);

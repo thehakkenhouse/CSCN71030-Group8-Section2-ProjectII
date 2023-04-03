@@ -12,13 +12,14 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#define INVALID_INPUT_MESSAGE "Invalid input. Please try again.\n"
 
 void gamePlay(int commandlineargument, USER* currentuser)
 {
     bool* success = 0;
     int randomnumbers = randomNumber();
     char gamechoices = gameChoice(randomnumbers);
-    char validchar = getValidCharFromUser(message);
+    char validchar = getValidCharFromUser(INVALID_INPUT_MESSAGE);
     int gameresults = gameResults(validchar, gamechoices);
     gameScore(commandlineargument, gameresults, currentuser);
 }

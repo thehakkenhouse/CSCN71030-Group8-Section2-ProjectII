@@ -24,6 +24,9 @@
 #define PASSWORD_LENGTH 20
 #define SCORE_STRING_LENGTH 20
 #define MAX_LEADERBOARD_ASCII_LINE 100
+#define MAX_LEADERBOARD_BINARY_LINE 5000
+#define LEADERBOARD_FILE_NAME "game_data.txt"
+#define FILE_WRITE_ERROR_MESSAGE "\nERROR: unable to save game data to current program directory. Please make sure that you are running with sufficient permissions!\n"
 
 /**
  * @brief Tries to open and return a file pointer.
@@ -266,7 +269,8 @@ void insertUserFromLeaderboardLine(const char inputLine[], LEADERBOARD* leaderbo
 
     interpretLeaderboardLine(inputLine, username, password, &userScore);
 
-	// TODO: implement this function
+    USER* newUser = createUser(username, password, userScore);
+    insertUserIntoLeaderboard(leaderboard, newUser);
 }
 
 /**
@@ -335,10 +339,58 @@ char* convertUserToLeaderboardLine(const USER* user) {
     return binaryString;
 }
 
-void saveLeaderboardToFile(LEADERBOARD* leaderboard) {
+/*
+ * @brief Saves the current Leaderboard Node to the leaderboard file
+ * @param leaderboardFile The leaderboard file pointer to save to
+ * @param leaderboardNode The leaderboard node to save
+ *
+ * @author Luna Parker
+ */
+void saveLeaderboardNodeToFile(FILE* leaderboardFile, LEADERBOARD_NODE* leaderboardNode)
+{
 	// TODO: implement this function
 }
 
-void readLeaderboardFromFile(LEADERBOARD* leaderboard) {
-	// TODO: implement this function
+void saveLeaderboardToFile(LEADERBOARD* leaderboard) {
+    // First, we'll try to open the leaderboard file with overwrite permissions
+    bool fileOpenedSuccessfully;
+    FILE* possibleLeaderboardFile = tryToOpenFile(LEADERBOARD_FILE_NAME, FILE_WRITE_MODE, &fileOpenedSuccessfully);
+
+    // If it couldn't open, we'll tell the user and return early
+    if(!fileOpenedSuccessfully)
+    {
+        printf(FILE_WRITE_ERROR_MESSAGE);
+        return;
+    }
+
+    // Otherwise, we'll iterate through each of the nodes of the linked list,
+    // and convert each to binary and then save it to the file
+    LEADERBOARD_NODE* currentNode = leaderboard->firstNode;
+
+    // 
+    while(currentNode != NULL)
+    {
+	    
+    }
+}
+
+void readLeaderboardFromFile(LEADERBOARD* leaderboard, bool* openedFileSuccessfully) {
+    FILE* possibleLeaderboardFile = tryToOpenFile(LEADERBOARD_FILE_NAME, FILE_READ_MODE, openedFileSuccessfully);
+    leaderboard = initializeNewLeaderboard();
+
+    // If the file can't be opened, we'll act as though this is a new user and just use the empty leaderboard
+    if(!openedFileSuccessfully)
+    {
+        return;
+    }
+
+    char currentBuffer[MAX_LEADERBOARD_BINARY_LINE];
+
+    // Otherwise, we need to iterate over each line and interpret it into the leaderboard
+    while (fgets(currentBuffer, MAX_LEADERBOARD_BINARY_LINE, possibleLeaderboardFile)) {
+        // Remove the newlines retrieved by fgets to get a single line
+        endStringAtNewLine(currentBuffer);
+
+        insertUserFromLeaderboardLine(currentBuffer, leaderboard);
+    }
 }

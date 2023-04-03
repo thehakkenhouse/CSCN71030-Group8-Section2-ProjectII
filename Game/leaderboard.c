@@ -5,13 +5,17 @@
 // Module managed by Michelle Novar
 
 #include "leaderboard.h"
+#include "memory.h"
 #include <stdbool.h>
 #include <stdio.h>
 
 
 
 
-void printLeaderboardByHighestScore(const LEADERBOARD* leaderboard);                   // luna is creating this!
+void printLeaderboardByHighestScore(const LEADERBOARD* leaderboard)
+{
+	// TODO: implement this function
+}
 // this function will print leaderboard in a sorted order from lowest to highest (max of 10?)
 // communicates with file 
 //  const char username[], int newScore
@@ -76,4 +80,19 @@ void insertUserIntoLeaderboard(LEADERBOARD* leaderboard, const USER* newUser) { 
     }
 
     currentNode->next = createLeaderboardNode(newUser);
+}
+
+/**
+ * @brief Creates a new, empty leaderboard to work with
+ * @return A leaderboard pointer to an empty Leaderboard
+ *
+ * @author Luna Parker
+ */
+LEADERBOARD* initializeNewLeaderboard(void)
+{
+    LEADERBOARD* newLeaderboard = tryToGetAndAssignMemorySafely(sizeof(LEADERBOARD));
+
+    newLeaderboard->firstNode = NULL;
+
+    return newLeaderboard;
 }

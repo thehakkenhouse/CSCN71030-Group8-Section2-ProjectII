@@ -25,7 +25,7 @@ struct user* searchByUsername(struct leaderboard* leaderboard, char usernameToSe
 struct leaderboardNode* createLeaderboardNode(const struct user* user);    // this is the createLeaderboardNode function prototype
 void insertUserIntoLeaderboard(struct leaderboard* leaderboard, const struct user* newUser); // this is the insertUserIntoLeaderboard function prototype
 bool IsEmpty(struct leaderboard* leaderboard); // isEmpty function prototype, checks to see if leaderboard is empty or not.
-
+LEADERBOARD* initializeNewLeaderboard(void);
 
 void printLeaderboardByHighestScore(const struct leaderboard* leaderboard);                   // luna is creating this!
 // this function will print leaderboard in a sorted order from lowest to highest (max of 10?)
