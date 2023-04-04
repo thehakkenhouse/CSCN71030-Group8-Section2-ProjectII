@@ -14,6 +14,7 @@
 #include <stdlib.h>
 
 #define INVALID_INPUT_MESSAGE "Invalid input. Please try again.\n"
+#define PROMPT_GAME_MESSAGE "Let's play a game of Rock, Paper, Scissors! Enter R for rock, P for paper, or S for scissors!\n"
 
 //gamePlay will be called in the menu module when the user choses to play a game and calls all necessary functions to 
 //play a game
@@ -21,7 +22,7 @@ void gamePlay(int commandlineargument, USER* currentuser)
 {
     int randomnumbers = randomNumber(); //generates random number using rand and assigns it to randomnumbers
     char gamechoices = gameChoice(randomnumbers); //generates computer choice based on the random number
-    printf("Let's play a game! Enter R for rock, P for paper, or S for scissors\n");
+    printf("%s", PROMPT_GAME_MESSAGE);
     char validchar = getValidCharFromUser(INVALID_INPUT_MESSAGE); //gets a valid char from the user (this function comes from the input module)
     int gameresults = gameResults(validchar, gamechoices); //generates the game results based on the user input and computer input
     gameScore(commandlineargument, gameresults, currentuser); //updates user struct based on the resuls of the game
