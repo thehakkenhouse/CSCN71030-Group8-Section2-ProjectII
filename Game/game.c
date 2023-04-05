@@ -20,10 +20,17 @@
 //play a game
 void gamePlay(int commandlineargument, USER* currentuser)
 {
+    srand(time(NULL)); //using srand to make the random function more random, seeding it with time(NULL) 
+    
     int randomnumbers = randomNumber(); //generates random number using rand and assigns it to randomnumbers
     char gamechoices = gameChoice(randomnumbers); //generates computer choice based on the random number
     printf("%s", PROMPT_GAME_MESSAGE);
     char validchar = getValidCharFromUser(INVALID_INPUT_MESSAGE); //gets a valid char from the user (this function comes from the input module)
+    while (validchar != 'r' && validchar != 'p' && validchar != 's' && validchar != 'R' && validchar != 'P' && validchar != 'S')
+    {
+        printf("%s", INVALID_INPUT_MESSAGE);
+        validchar = getValidCharFromUser(INVALID_INPUT_MESSAGE);
+    }
     int gameresults = gameResults(validchar, gamechoices); //generates the game results based on the user input and computer input
     gameScore(commandlineargument, gameresults, currentuser); //updates user struct based on the resuls of the game
 }
@@ -31,8 +38,6 @@ void gamePlay(int commandlineargument, USER* currentuser)
 //generates a randomNumber to help select computer input
 int randomNumber()
 {
-    srand(time(NULL)); //using srand to make the random function more random, seeding it with time(NULL) 
-
     int randomnumber = rand() % 3 + 1; //randomly generates a number between 1-3 inclusively
 
     return randomnumber; //returns the randomly generated number 
@@ -71,7 +76,6 @@ int gameResults(char userinput, char gameChoice)
     else
     {
         gameresult = -1;
-        printf("%s\n", ERROR_MESSAGE);
     }
     printResults(gameresult);
     return gameresult; //error using uninitialized memory //results the result of the game (0 for user win, 1 for user loss, and 2 for tie)
@@ -150,7 +154,6 @@ void gameScore(int commandlineargument, int gameresult, USER* currentuser)
     else
     {
         score = 0;
-        printf("%s\n", ERROR_MESSAGE);
     }
     printf("Score: %d\n", score);
     currentuser->score = currentuser->score + score;
