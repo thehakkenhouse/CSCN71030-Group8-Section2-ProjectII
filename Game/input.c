@@ -11,7 +11,7 @@
 #include <limits.h>
 #include <stdlib.h>
 
-#define CHAR_INPUT_LENGTH 3
+#define CHAR_INPUT_LENGTH 1000
 #define WAIT_BUFFER_LENGTH 500
 
 void getStringFromUser(char inputString[], int maxLength) {
