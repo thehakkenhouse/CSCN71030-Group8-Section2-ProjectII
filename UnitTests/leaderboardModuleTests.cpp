@@ -1,6 +1,6 @@
-#define CRT_SECURE_NO_WARNINGS
 #include "pch.h"
 #include "CppUnitTest.h"
+#define CRT_SECURE_NO_WARNINGS
 
 extern "C" {
 #include "../Game/leaderboard.h"
