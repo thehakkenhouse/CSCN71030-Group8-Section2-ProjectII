@@ -75,7 +75,7 @@ bool login(const LEADERBOARD* leaderboard, USER** currentUser) {
 
     if (loginUser == NULL) //if the username does not exist in the database
     {
-        printf("The username entered does not exist. Please enter a valid username or sign up to create a new account\n");  //display a usable message and return false
+        printf("The username entered does not exist. Please enter a valid username or sign up to create a new account.\n");  //display a usable message and return false
         return false;
     }
 
@@ -84,7 +84,7 @@ bool login(const LEADERBOARD* leaderboard, USER** currentUser) {
 
     if (!doesPasswordMatch(loginUser, passwordInput))     //if the password does not match the username, print a usable message and return false
     {
-        printf("Your password doesn't match the provided username. Please enter a valid password.");
+        printf("Your password doesn't match the provided username. Please enter a valid password.\n");
         return false;
     }
 
@@ -115,7 +115,7 @@ bool signUp(LEADERBOARD* leaderboard, USER** user)
     if (possibleUser != NULL) //if the username exists in the database and currentUser is not NULL 
     {
         //display a usable message and return false
-        printf("This username already exists, please try a different username or log in to your account");
+        printf("This username already exists, please try a different username or log in to your account\n");
         return false;
     }
 
