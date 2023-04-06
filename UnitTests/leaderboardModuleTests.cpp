@@ -8,12 +8,10 @@ extern "C" {
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+namespace LeaderboardUnitTests {
 
 
-namespace LeaderboardUnitTests
-{
-
-	TEST_CLASS(IsEmpty)
+	TEST_CLASS(IsEmptyTest)
 	{
 	public:
 		TEST_METHOD(IsEmptyTrue)
@@ -30,7 +28,7 @@ namespace LeaderboardUnitTests
 
 
 			newLeaderboard->firstNode == NULL;
-			
+
 
 			bool result = IsEmpty(leaderboard);   // this isn't correct, IsEmpty issue
 			Assert::IsTrue(result);
@@ -46,7 +44,7 @@ namespace LeaderboardUnitTests
 			LEADERBOARD* leaderboard;
 			LEADERBOARD* newLeaderboard;
 
-			LEADERBOARD_NODE*leaderboard = (LEADERBOARD_NODE*)malloc(sizeof(LEADERBOARD_NODE));
+			LEADERBOARD_NODE* leaderboard = (LEADERBOARD_NODE*)malloc(sizeof(LEADERBOARD_NODE));
 			if (leaderboard == NULL)
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
@@ -58,6 +56,5 @@ namespace LeaderboardUnitTests
 
 			free(leaderboard);
 		}
-
-
-	}
+	};
+}
