@@ -22,13 +22,20 @@ namespace LeaderboardUnitTests
 			// if the leaderboard is empty.
 
 			LEADERBOARD* leaderboard;
+			LEADERBOARD* newLeaderboard;
 
-			leaderboard == NULL;
+			LEADERBOARD_NODE* leaderboard = (LEADERBOARD_NODE*)malloc(sizeof(LEADERBOARD_NODE));
+			if (leaderboard == NULL)
+				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 
-			bool result = IsEmpty(leaderboard);
+			newLeaderboard->firstNode == NULL;
+			
+
+			bool result = IsEmpty(leaderboard);   // this isn't correct, IsEmpty issue
 			Assert::IsTrue(result);
 
+			free(leaderboard);
 		}
 
 		TEST_METHOD(IsEmptyFalse)
@@ -37,13 +44,19 @@ namespace LeaderboardUnitTests
 			// if the leaderboard is not empty.
 
 			LEADERBOARD* leaderboard;
+			LEADERBOARD* newLeaderboard;
 
-			leaderboard != NULL;
+			LEADERBOARD_NODE*leaderboard = (LEADERBOARD_NODE*)malloc(sizeof(LEADERBOARD_NODE));
+			if (leaderboard == NULL)
+				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
+
+			newLeaderboard->firstNode != NULL;
 
 
-			bool result = IsEmpty(leaderboard);
+			bool result = IsEmpty(leaderboard); // this isn't correct, IsEmpty issue
 			Assert::IsFalse(result);
 
+			free(leaderboard);
 		}
 
 
