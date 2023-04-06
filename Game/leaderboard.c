@@ -13,9 +13,6 @@
 #define LEADERBOARD_USER_PRINT_FORMAT "%s -- Score: %d\n"
 #define QUIT_LEADERBOARD_PROMPT "\nPress any key to return to the menu...\n"
 
-// this function will print leaderboard in a sorted order from lowest to highest (max of 10?)
-// communicates with file 
-//  const char username[], int newScore
 
 bool IsEmpty(struct leaderboard* leaderboard) // isEmpty function definition, checks to see if leaderboard is empty or not
 {
