@@ -17,7 +17,7 @@
 // communicates with file 
 //  const char username[], int newScore
 
-bool IsEmpty(LEADERBOARD* leaderboard) // isEmpty function definition, checks to see if leaderboard is empty or not
+bool IsEmpty(struct leaderboard* leaderboard) // isEmpty function definition, checks to see if leaderboard is empty or not
 {
     // If the leaderboard itself hasn't been defined, return false
     if (leaderboard == NULL) {
@@ -28,7 +28,7 @@ bool IsEmpty(LEADERBOARD* leaderboard) // isEmpty function definition, checks to
 }
 
 // searches through the leaderboard for username. Returns current user if found, returns NULL if no match.
-USER* searchByUsername(LEADERBOARD* leaderboard, char usernameToSearch[]) {    // this is the searchByUserName function definition
+struct user* searchByUsername(struct leaderboard* leaderboard, char usernameToSearch[]) {    // this is the searchByUserName function definition
     // Set the current node to be the "first" node in the leaderboard
     LEADERBOARD_NODE* currentNode = leaderboard->firstNode;
 
@@ -52,7 +52,7 @@ USER* searchByUsername(LEADERBOARD* leaderboard, char usernameToSearch[]) {    /
     return NULL;
 }
 
-LEADERBOARD_NODE* createLeaderboardNode(const USER* user) {             // this is the createLeaderboardNode function definition
+struct leaderboardNode* createLeaderboardNode(const struct user* user) {             // this is the createLeaderboardNode function definition
     LEADERBOARD_NODE* newNode = malloc(sizeof(LEADERBOARD_NODE));
 
     newNode->data = user;  // new node is given data of user
@@ -61,7 +61,7 @@ LEADERBOARD_NODE* createLeaderboardNode(const USER* user) {             // this 
     return newNode;      // new node is returned
 }
 
-void insertUserIntoLeaderboard(LEADERBOARD* leaderboard, const USER* newUser) {  // this is the insertUserIntoLeaderboard functionn definition
+void insertUserIntoLeaderboard(struct leaderboard* leaderboard, const struct user* newUser) {  // this is the insertUserIntoLeaderboard functionn definition
     LEADERBOARD_NODE* currentNode = leaderboard->firstNode;
 
     // If the leaderboard is empty
@@ -99,7 +99,7 @@ LEADERBOARD* initializeNewLeaderboard(void)
  *
  * @author Luna Parker
  */
-void clearLeaderboardFromMemory(LEADERBOARD* leaderboard)
+void clearLeaderboardFromMemory(struct leaderboard* leaderboard)
 {
     // If the leaderboard itself hasn't been assigned in memory, then
     // there's nothing for us to free.
@@ -186,7 +186,7 @@ void sortLeaderboardByScore(struct leaderboard* leaderboard) {
  * 
  * @author Luna Parker
  */
-void printLeaderboardUser(const USER* user) {
+void printLeaderboardUser(const struct user* user) {
     printf(LEADERBOARD_USER_PRINT_FORMAT, user->userName, user->score);
 }
 
