@@ -6,6 +6,7 @@
     <ClCompile Include="GameModuleTests.cpp" />
     <ClCompile Include="InputTests.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="leaderboardModuleTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
