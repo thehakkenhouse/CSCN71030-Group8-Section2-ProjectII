@@ -13,6 +13,7 @@
 #include "file.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 int main(int argc, char* argv[])
 {
@@ -34,7 +35,10 @@ int main(int argc, char* argv[])
 	runTopMenu(commandlineargument, leaderboard, &currentUser);
 
 	// Save the leaderboard back to the game file
-	saveLeaderboardToFile(leaderboard);
+	bool leaderboardSavedSuccessfully = saveLeaderboardToFile(leaderboard);
+
+	// Print whether the leaderboard was saved successfully
+	printLeaderboardSaveMessage(leaderboardSavedSuccessfully);
 
 	// Clear the leaderboard to prevent a memory leak
 	clearLeaderboardFromMemory(leaderboard);

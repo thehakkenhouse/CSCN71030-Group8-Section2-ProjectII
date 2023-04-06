@@ -24,7 +24,7 @@ void insertUserFromLeaderboardLine(const char[], struct leaderboard*);
 void cleanStringOfSeparators(char[]);
 char* convertUserToLeaderboardLine(const struct user*);
 void saveLeaderboardNodeToFile(FILE*, struct leaderboardNode*);
-void saveLeaderboardToFile(struct leaderboard*);
+bool saveLeaderboardToFile(struct leaderboard*);
 bool isLeaderboardLineValid(const char[]);
 void readLeaderboardFromFile(struct leaderboard**, bool*);
 

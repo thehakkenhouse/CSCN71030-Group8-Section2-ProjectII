@@ -12,6 +12,7 @@
 #include "game.h"
 #include "file.h"
 #include <stdio.h>
+#include <stdbool.h>
 
 #define FIRST_OPTION_CHAR 'a'
 #define SECOND_OPTION_CHAR 'b'
@@ -27,8 +28,6 @@
 #define TOPMENU_OPTION_CHARACTERS {FIRST_OPTION_CHAR, SECOND_OPTION_CHAR}
 #define TOPMENU_OPTION_NAMES {AUTHENTICATION_OPTION_LOGIN, AUTHENTICATION_OPTION_SIGNUP}
 
-
-
 //Second menu
 #define NUMBER_OF_SECONDMENU_OPTIONS 3
 #define PLAY_GAME_MENU_OPTION_NAME "Play new game"
@@ -37,6 +36,9 @@
 #define SECONDMENU_OPTION_CHARACTERS {FIRST_OPTION_CHAR, SECOND_OPTION_CHAR, QUIT_OPTION_CHAR}
 #define SECONDMENU_OPTION_NAMES {PLAY_GAME_MENU_OPTION_NAME, LEADERBOARD_OPTION_NAME, QUIT_OPTION_NAME}
 
+// Leaderboard Save Messages
+#define LEADERBOARD_SAVED_SUCCESSFULLY_MESSAGE "\nProgram data saved successfully\n"
+#define LEADERBOARD_FAILED_SAVING_MESSAGE "\nERROR: Program data could not be saved. Please make sure that RPS Pro has write access to the directory it's running from.\n"
 
 //this function prints a welcome message with the username
 void printMenuIntroduction(const USER* currentUser)
@@ -190,5 +192,20 @@ void runSecondMenu(LEADERBOARD* leaderboard, USER* currentUser, int commandlinea
 		// We know that we now have a valid char, and so we'll
 		// run the menu action the user selected
 		runSecondMenuAction(currentChar, leaderboard, currentUser, commandlineargument);
+	}
+}
+
+/**
+ * @brief Prints whether the leaderboard could be saved correctly
+ * @param leaderboardSavedSuccessfully Whether the leaderboard was successfully saved to the file
+ *
+ * @author Luna Parker
+ */
+void printLeaderboardSaveMessage(bool leaderboardSavedSuccessfully) {
+	if (leaderboardSavedSuccessfully) {
+		printf(LEADERBOARD_SAVED_SUCCESSFULLY_MESSAGE);
+	}
+	else {
+		printf(LEADERBOARD_FAILED_SAVING_MESSAGE);
 	}
 }

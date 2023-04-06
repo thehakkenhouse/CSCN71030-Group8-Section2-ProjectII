@@ -407,7 +407,7 @@ void saveLeaderboardNodeToFile(FILE* leaderboardFile, LEADERBOARD_NODE* leaderbo
  *
  * @author Luna Parker
  */
-void saveLeaderboardToFile(LEADERBOARD* leaderboard) {
+bool saveLeaderboardToFile(LEADERBOARD* leaderboard) {
     // First, we'll try to open the leaderboard file with overwrite permissions
     bool fileOpenedSuccessfully;
     FILE* possibleLeaderboardFile = tryToOpenFile(LEADERBOARD_FILE_NAME, FILE_WRITE_MODE, &fileOpenedSuccessfully);
@@ -416,7 +416,7 @@ void saveLeaderboardToFile(LEADERBOARD* leaderboard) {
     if(!fileOpenedSuccessfully)
     {
         printf(FILE_WRITE_ERROR_MESSAGE);
-        return;
+        return false;
     }
 
     // Otherwise, we'll iterate through each of the nodes of the linked list,
@@ -432,6 +432,8 @@ void saveLeaderboardToFile(LEADERBOARD* leaderboard) {
     }
 
     fclose(possibleLeaderboardFile);
+
+    return true;
 }
 
 /**
