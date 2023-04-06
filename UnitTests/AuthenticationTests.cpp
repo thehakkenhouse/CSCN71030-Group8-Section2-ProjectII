@@ -28,7 +28,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "validpassword";
-			//strcpy_s(currentUser->password, "validpassword");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "validpassword");
 
 
@@ -48,7 +47,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "VALIDPASSWORD";
-			//strcpy_s(currentUser->password, "VALIDPASSWORD");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "VALIDPASSWORD");
 
 			bool result = doesPasswordMatch(currentUser, passwordInput);
@@ -68,7 +66,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "invalidpassword";
-			//strcpy_s(currentUser->password, "password");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "password");
 
 
@@ -89,7 +86,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "INVALIDPASSWORD";
-			//strcpy_s(currentUser->password, "PASSWORD");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "PASSWORD");
 
 
@@ -109,7 +105,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = " ";
-			//strcpy_s(currentUser->password, "password");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "password");
 
 			bool result = doesPasswordMatch(currentUser, passwordInput);
@@ -129,7 +124,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "PASSWORD";
-			//strcpy_s(currentUser->password, "password");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "password");
 
 
@@ -150,7 +144,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "password";
-			//strcpy_s(currentUser->password, "PASSWORD");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "PASSWORD");
 
 
@@ -171,7 +164,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "passworD";
-			//	strcpy_s(currentUser->password, "password");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "password");
 
 
@@ -191,7 +183,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "password344";
-			//	strcpy_s(currentUser->password, "password");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "password344");
 
 
@@ -211,7 +202,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "password*%";
-			//	strcpy_s(currentUser->password, "password");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "password*%");
 
 
@@ -231,7 +221,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "password01*";
-			//	strcpy_s(currentUser->password, "password");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "password01*");
 
 
@@ -251,7 +240,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "PASSWORD344";
-			//	strcpy_s(currentUser->password, "password");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "PASSWORD344");
 
 
@@ -271,7 +259,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "PASSWORD*%";
-			//	strcpy_s(currentUser->password, "password");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "PASSWORD*%");
 
 
@@ -291,7 +278,6 @@ namespace AuthenticationUnitTests
 				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
 
 			char passwordInput[PASSWORD_LENGTH] = "PASSWORD01*";
-			//	strcpy_s(currentUser->password, "password");
 			strcpy_s(currentUser->password, sizeof(char) * PASSWORD_LENGTH, "PASSWORD01*");
 
 
@@ -300,9 +286,87 @@ namespace AuthenticationUnitTests
 
 			free(currentUser);
 		}
+
+	};
+
+
+	TEST_CLASS(createUserTests)
+	{
+	public:
+		TEST_METHOD(createUserSuccessfullWithValidData) {
+		   /* A test to make sure that the createUser function will create the user
+		   correctly with the given username, password, and score and then return the struct */
+
+
+			char username[USER_NAME_LENGTH] = "username";
+			char password[PASSWORD_LENGTH] = "password";
+
+			USER* newUser = createUser(username, password, 2);
+
+			Assert::AreEqual(newUser->userName, "username");
+			Assert::AreEqual(newUser->password, "password");
+			Assert::AreEqual(newUser->score, 2);
+
+		}
+
+		TEST_METHOD(createUserSuccessfullWithBlankUsername) {
+			/* A test to make sure that the createUser function will create the user
+			correctly with a blank username and return it */
+
+			char username[USER_NAME_LENGTH] = " ";
+			char password[PASSWORD_LENGTH] = "password";
+
+			USER* newUser = createUser(username, password, 2);
+
+			Assert::AreEqual(newUser->userName, " ");
+			Assert::AreEqual(newUser->password, "password");
+			Assert::AreEqual(newUser->score, 2);
+		}
+
+
+		TEST_METHOD(createUserSuccessfullWithBlankPassword) {
+			/* A test to make sure that the createUser function will create the user
+			correctly with a blank password and return it */
+
+			char username[USER_NAME_LENGTH] = "username";
+			char password[PASSWORD_LENGTH] = " ";
+
+			USER* newUser = createUser(username, password, 2);
+
+			Assert::AreEqual(newUser->userName, "username");
+			Assert::AreEqual(newUser->password, " ");
+			Assert::AreEqual(newUser->score, 2);
+		}
+
+		TEST_METHOD(createUserSuccessfullWithNumbers) {
+			/* A test to make sure that the createUser function will create the user
+			correctly with username and password that contains numbers and return it */
+
+			char username[USER_NAME_LENGTH] = "username12";
+			char password[PASSWORD_LENGTH] = "password12";
+
+			USER* newUser = createUser(username, password, 2);
+
+			Assert::AreEqual(newUser->userName, "username12");
+			Assert::AreEqual(newUser->password, "password12");
+			Assert::AreEqual(newUser->score, 2);
+		}
+
+
+
+		TEST_METHOD(createUserSuccessfullWithSymbols) {
+			/* A test to make sure that the createUser function will create the user
+			correctly with username and password that contains symbols and return it */
+
+			char username[USER_NAME_LENGTH] = "username*&^";
+			char password[PASSWORD_LENGTH] = "password&%&";
+
+			USER* newUser = createUser(username, password, 2);
+
+			Assert::AreEqual(newUser->userName, "username*&^");
+			Assert::AreEqual(newUser->password, "password&%&");
+			Assert::AreEqual(newUser->score, 2);
+		}
+
 	};
 }
-
-
-
-

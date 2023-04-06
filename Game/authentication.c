@@ -36,7 +36,7 @@ USER* createUser(const char username[], const char password[], int score)
     return newUser;
 }
 
-void copyUserName(const USER* user, char userName[])
+void copyUserName(const struct user* user, char userName[])
 {
 	strcpy(userName, user->userName);
 }
@@ -44,7 +44,7 @@ void copyUserName(const USER* user, char userName[])
 /*defining the doesPasswordMatch function which checks to see if the entered
 password matches the user's password from the leaderboard database*/
 
-bool doesPasswordMatch(const USER* leaderboardUser, const char inputPassword[])
+bool doesPasswordMatch(const struct user* leaderboardUser, const char inputPassword[])
 {
     if (strcmp(leaderboardUser->password, inputPassword) != 0)
         return false;      //return false if the passwords don't match
@@ -57,7 +57,7 @@ bool doesPasswordMatch(const USER* leaderboardUser, const char inputPassword[])
 /*defining the login function which returns true if the usrname and password entered by the user
 matches the ones in the leaderboard database and returns false otherwise */
 
-bool login(const LEADERBOARD* leaderboard, USER** currentUser) {
+bool login(const struct leaderboard* leaderboard, struct user** currentUser) {
 
     // Ask the user for a username and password
     puts("Please enter your username and password in order to log in: ");
@@ -97,7 +97,7 @@ bool login(const LEADERBOARD* leaderboard, USER** currentUser) {
 /* defining the signUp function which gets username and password from the user and checks to see if the account already exists or not,
 if not creates a new account */
 
-bool signUp(LEADERBOARD* leaderboard, USER** user)
+bool signUp(struct leaderboard* leaderboard, const struct user** user)
 {
     // Ask the user for a username and password
     puts("Please enter a username and a password in order to sign up: ");
