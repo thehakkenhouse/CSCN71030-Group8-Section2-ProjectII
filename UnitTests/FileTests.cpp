@@ -350,11 +350,9 @@ namespace FileUnitTests {
 			int score;
 			char leaderboardLine[] = "011111000111110000110000";
 
-			interpretLeaderboardLine(leaderboardLine, username, password, &score);
+			bool actual = interpretLeaderboardLine(leaderboardLine, username, password, &score);
 
-			Assert::AreEqual("", username);
-			Assert::AreEqual("", password);
-			Assert::AreEqual(0, score);
+			Assert::IsFalse(actual);
 		}
 
 		TEST_METHOD(conversionOneTest)

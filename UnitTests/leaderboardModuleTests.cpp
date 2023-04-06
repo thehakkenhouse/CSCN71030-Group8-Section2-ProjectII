@@ -4,6 +4,7 @@
 
 extern "C" {
 #include "../Game/leaderboard.h"
+#include "../Game/authentication.h"
 }
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -19,21 +20,12 @@ namespace LeaderboardUnitTests {
 			// A test to make sure the IsEmpty function will return true
 			// if the leaderboard is empty.
 
-			LEADERBOARD* leaderboard;
-			LEADERBOARD* newLeaderboard;
-
-			LEADERBOARD_NODE* leaderboard = (LEADERBOARD_NODE*)malloc(sizeof(LEADERBOARD_NODE));
-			if (leaderboard == NULL)
-				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
-
-
-			newLeaderboard->firstNode == NULL;
-
+			LEADERBOARD* leaderboard = initializeNewLeaderboard();
 
 			bool result = IsEmpty(leaderboard);   // this isn't correct, IsEmpty issue
 			Assert::IsTrue(result);
 
-			free(leaderboard);
+			clearLeaderboardFromMemory(leaderboard);
 		}
 
 		TEST_METHOD(IsEmptyFalse)
@@ -41,20 +33,16 @@ namespace LeaderboardUnitTests {
 			// A test to make sure the IsEmpty function will return false
 			// if the leaderboard is not empty.
 
-			LEADERBOARD* leaderboard;
-			LEADERBOARD* newLeaderboard;
+			LEADERBOARD* leaderboard = initializeNewLeaderboard();
 
-			LEADERBOARD_NODE* leaderboard = (LEADERBOARD_NODE*)malloc(sizeof(LEADERBOARD_NODE));
-			if (leaderboard == NULL)
-				Assert::Fail(L"This test has failed! Unable to dynamically allocate memory.");
+			USER* newUser = createUser("Test", "password", 0);
 
-			newLeaderboard->firstNode != NULL;
-
+			insertUserIntoLeaderboard(leaderboard, newUser);
 
 			bool result = IsEmpty(leaderboard); // this isn't correct, IsEmpty issue
 			Assert::IsFalse(result);
 
-			free(leaderboard);
+			clearLeaderboardFromMemory(leaderboard);
 		}
 	};
 }

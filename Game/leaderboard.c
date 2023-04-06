@@ -19,10 +19,12 @@
 
 bool IsEmpty(LEADERBOARD* leaderboard) // isEmpty function definition, checks to see if leaderboard is empty or not
 {
-    if (leaderboard == NULL)
-        return true;           // true returned if leaderboard is pointing to NULL, means it is empty.
-    else
-        return false;         // false is returned otherwise
+    // If the leaderboard itself hasn't been defined, return false
+    if (leaderboard == NULL) {
+        return false;
+    }
+
+    return leaderboard->firstNode == NULL;
 }
 
 // searches through the leaderboard for username. Returns current user if found, returns NULL if no match.
