@@ -69,23 +69,6 @@ void printSecondMenu(const USER* currentUser, const char optionCharacters[], con
 }
 
 
-//void runTopMenuAction(char input, LEADERBOARD* leaderboard, USER* currentUser) {
-//	
-//	switch (input)
-//	{
-//	case FIRST_OPTION_CHAR:
-//		login(leaderboard, currentUser);
-//		break;
-//	case SECOND_OPTION_CHAR:
-//		signUp(leaderboard, currentUser);
-//		break;
-//	default:
-//		break;
-//	}
-//}
-//
-
-
 //this function contains a switch statement that calls the functions associated with each option from the top menu
 //this function will return true if the log in or sign up process was successfull
 

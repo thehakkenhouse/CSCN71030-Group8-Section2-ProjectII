@@ -298,10 +298,7 @@ namespace AuthenticationUnitTests
 		   correctly with the given username, password, and score and then return the struct */
 
 
-			char username[USER_NAME_LENGTH] = "username";
-			char password[PASSWORD_LENGTH] = "password";
-
-			USER* newUser = createUser(username, password, 2);
+			USER* newUser = createUser("username", "password", 2);
 
 			Assert::AreEqual(newUser->userName, "username");
 			Assert::AreEqual(newUser->password, "password");
@@ -313,10 +310,7 @@ namespace AuthenticationUnitTests
 			/* A test to make sure that the createUser function will create the user
 			correctly with a blank username and return it */
 
-			char username[USER_NAME_LENGTH] = " ";
-			char password[PASSWORD_LENGTH] = "password";
-
-			USER* newUser = createUser(username, password, 2);
+			USER* newUser = createUser(" ", "password", 2);
 
 			Assert::AreEqual(newUser->userName, " ");
 			Assert::AreEqual(newUser->password, "password");
@@ -328,10 +322,8 @@ namespace AuthenticationUnitTests
 			/* A test to make sure that the createUser function will create the user
 			correctly with a blank password and return it */
 
-			char username[USER_NAME_LENGTH] = "username";
-			char password[PASSWORD_LENGTH] = " ";
 
-			USER* newUser = createUser(username, password, 2);
+			USER* newUser = createUser("username", " ", 2);
 
 			Assert::AreEqual(newUser->userName, "username");
 			Assert::AreEqual(newUser->password, " ");
@@ -342,10 +334,7 @@ namespace AuthenticationUnitTests
 			/* A test to make sure that the createUser function will create the user
 			correctly with username and password that contains numbers and return it */
 
-			char username[USER_NAME_LENGTH] = "username12";
-			char password[PASSWORD_LENGTH] = "password12";
-
-			USER* newUser = createUser(username, password, 2);
+			USER* newUser = createUser("username12", "password12", 2);
 
 			Assert::AreEqual(newUser->userName, "username12");
 			Assert::AreEqual(newUser->password, "password12");
@@ -358,10 +347,7 @@ namespace AuthenticationUnitTests
 			/* A test to make sure that the createUser function will create the user
 			correctly with username and password that contains symbols and return it */
 
-			char username[USER_NAME_LENGTH] = "username*&^";
-			char password[PASSWORD_LENGTH] = "password&%&";
-
-			USER* newUser = createUser(username, password, 2);
+			USER* newUser = createUser("username*&^", "password&%&", 2);
 
 			Assert::AreEqual(newUser->userName, "username*&^");
 			Assert::AreEqual(newUser->password, "password&%&");
