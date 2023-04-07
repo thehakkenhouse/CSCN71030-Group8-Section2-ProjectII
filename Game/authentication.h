@@ -20,12 +20,13 @@
 #define USER_NAME_LENGTH 30
 #define PASSWORD_LENGTH 20
 
-typedef struct user {
+typedef struct user {                             // USER 
 	char userName[USER_NAME_LENGTH];
 	char password[PASSWORD_LENGTH];
 	int score;
 } USER;
 
+// prototypes for authentication.h 
 USER* createUser(const char[], const char[], int);
 void copyUserName(const struct user*, char[]);
 bool login(const struct leaderboard* leaderboard, struct user** currentUser);

@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+// prototype for memory.h
 void* tryToGetAndAssignMemorySafely(size_t);
 
 #endif

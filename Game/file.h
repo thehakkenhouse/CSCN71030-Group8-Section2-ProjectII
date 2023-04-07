@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+
+// prototypes for file.h 
 bool doesFileExist(const char[]);
 FILE* tryToOpenFile(const char[], const char[], bool*);
 void closeFile(FILE*);

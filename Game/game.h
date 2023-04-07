@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #define ERROR_MESSAGE "An error occured"
 
+// prototypes for game.h 
 void gamePlay(int commandlineargument, struct user* currentuser);
 int randomNumber();
 char gameChoice(int randomNumber);

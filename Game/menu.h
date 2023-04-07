@@ -12,6 +12,7 @@
 #include "authentication.h"
 #include <stdbool.h>
 
+// prototypes for menu.h 
 void printMenuIntroduction(const struct user*);
 void printTopMenuOptions(const char[], const char*[]);
 void printSecondMenu(const struct user*, const char[], const char*[]);

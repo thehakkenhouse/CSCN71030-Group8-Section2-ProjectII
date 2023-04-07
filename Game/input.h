@@ -11,6 +11,7 @@
 
 #define LINE_SEPARATOR_CHARACTER '|'
 
+// prototypes for input.h 
 void getStringFromUser(char[], int);
 bool isStringMinimumLength(const char[], int);
 bool isStringSpecificChar(const char[], char);
