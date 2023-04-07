@@ -12,12 +12,12 @@
 
 // please see leaderboard.c for the function definitions
 
-typedef struct leaderboardNode {
+typedef struct leaderboardNode {       // LEADERBOARD_NODE 
 	struct user* data;
 	struct leaderboardNode* next;
 } LEADERBOARD_NODE;
 
-typedef struct leaderboard {
+typedef struct leaderboard {            // LEADERBOARD
 	struct leaderboardNode* firstNode;
 } LEADERBOARD;
 
@@ -25,11 +25,11 @@ struct user* searchByUsername(struct leaderboard*, char[]); // this is the searc
 struct leaderboardNode* createLeaderboardNode(const struct user*);    // this is the createLeaderboardNode function prototype
 void insertUserIntoLeaderboard(struct leaderboard*, const struct user*); // this is the insertUserIntoLeaderboard function prototype
 bool IsEmpty(struct leaderboard*); // isEmpty function prototype, checks to see if leaderboard is empty or not.
-LEADERBOARD* initializeNewLeaderboard(void);
-void clearLeaderboardFromMemory(struct leaderboard*);
-void sortLeaderboardByScore(struct leaderboard*);
-void printLeaderboardUser(const struct user*);
-void printLeaderboardByHighestScore(struct leaderboard*);
+LEADERBOARD* initializeNewLeaderboard(void); // initializeNewLeaderboard prototype
+void clearLeaderboardFromMemory(struct leaderboard*); // clearLeaderboardFromMemory prototype
+void sortLeaderboardByScore(struct leaderboard*); // sortLeaderboardByScore prototype
+void printLeaderboardUser(const struct user*); // printLeaderboardUser prototype
+void printLeaderboardByHighestScore(struct leaderboard*); // printLeaderboardByHighestScore prototype
 
 
 

@@ -58,7 +58,7 @@ struct leaderboardNode* createLeaderboardNode(const struct user* user) {        
     return newNode;      // new node is returned
 }
 
-void insertUserIntoLeaderboard(struct leaderboard* leaderboard, const struct user* newUser) {  // this is the insertUserIntoLeaderboard functionn definition
+void insertUserIntoLeaderboard(struct leaderboard* leaderboard, const struct user* newUser) {  // this is the insertUserIntoLeaderboard function definition
     LEADERBOARD_NODE* currentNode = leaderboard->firstNode;
 
     // If the leaderboard is empty
