@@ -160,6 +160,7 @@ char getAllowedCharFromUser(const char allowedChars[], int numberOfAllowedChars,
 	// a valid one
 	while(!isCharacterAllowed)
 	{
+		printf("%s", invalidInputMessage);
 		userInputChar = getValidCharFromUser(invalidInputMessage);
 
 		isCharacterAllowed = isCharInArray(userInputChar, allowedChars, numberOfAllowedChars);
